@@ -622,6 +622,197 @@ footer .footer-glitch { animation:flicker 6s infinite; }
 }
 .audio-btn:hover { border-color:var(--accent-amber); color:var(--ink); }
 
+/* ─── MINIGAME STYLES ─── */
+.wave-segment polyline { transition: stroke 0.2s; }
+.wave-segment:hover polyline { stroke: var(--accent-amber); stroke-width:3; }
+.wave-segment.selected polyline { stroke: var(--ink-red-bright); stroke-width:3; }
+.wave-segment.correct polyline { stroke: var(--ink-green-bright); stroke-width:3; }
+
+.memory-card {
+  aspect-ratio: 1;
+  background: var(--bg-panel);
+  border: 2px solid var(--border-worn);
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, border-color 0.2s;
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+.memory-card:hover { transform: translateY(-4px); border-color: var(--accent-amber); }
+.memory-card.flipped { border-color: var(--ink-red); }
+.memory-card.matched { border-color: var(--ink-green); opacity: 0.6; cursor: default; }
+.memory-card .card-back {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Creepster', cursive;
+  font-size: 32px;
+  color: var(--ink-dim);
+  background: linear-gradient(135deg, #1a1916, #121110);
+}
+.memory-card .card-front {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  background: var(--bg-paper);
+}
+.memory-card.flipped .card-back { display: none; }
+.memory-card.flipped .card-front { display: flex; }
+
+.lab-switch {
+  text-align: center;
+}
+.switch-panel {
+  width: 80px;
+  height: 120px;
+  background: #0f0e0c;
+  border: 2px solid var(--border-worn);
+  border-radius: 4px;
+  position: relative;
+  margin-bottom: 12px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.6);
+}
+.power-meter {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, var(--ink-green-bright), var(--ink-green));
+  transition: background 0.3s;
+  box-shadow: 0 0 12px rgba(58,107,58,0.4);
+}
+.power-meter.active {
+  background: linear-gradient(180deg, var(--ink-red-bright), var(--ink-red));
+  box-shadow: 0 0 12px rgba(139,32,32,0.6);
+}
+.power-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  color: var(--ink);
+  text-shadow: 0 0 4px #000;
+  z-index: 2;
+}
+.switch-btn {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #1a1916, #141210);
+  border: 2px solid var(--border-worn);
+  color: var(--ink-dim);
+  font-family: 'Oswald', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+  box-shadow: 0 2px 6px var(--shadow-color);
+}
+.switch-btn:hover {
+  border-color: var(--accent-amber);
+  color: var(--ink);
+}
+.switch-btn.active {
+  background: linear-gradient(135deg, #2a1e1e, #1a1212);
+  border-color: var(--ink-red);
+  color: var(--ink-red-bright);
+  box-shadow: 0 0 12px rgba(139,32,32,0.4);
+}
+
+/* ─── CLICKABLE SECRETS ─── */
+.clickable-secret {
+  cursor: pointer !important;
+  pointer-events: all !important;
+  position: relative;
+}
+.clickable-secret::after {
+  content: '👁';
+  position: absolute;
+  right: 10px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  font-size: 12px;
+}
+.clickable-secret:hover::after {
+  opacity: 0.3;
+}
+
+.secret-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.3s;
+}
+.secret-modal.visible { display: flex; }
+.secret-content {
+  background: var(--bg-panel);
+  border: 3px solid var(--ink-red);
+  border-radius: 6px;
+  padding: 30px;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 40px rgba(139,32,32,0.5), 0 0 0 1px rgba(201,185,154,0.1);
+  position: relative;
+}
+.secret-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--ink-dim);
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.2s;
+}
+.secret-close:hover { color: var(--ink-red-bright); }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ─── HIDDEN CLICKABLE TEXT ─── */
+.hidden-clue {
+  cursor: help;
+  border-bottom: 1px dotted rgba(201,185,154,0.3);
+  transition: all 0.2s;
+}
+.hidden-clue:hover {
+  color: var(--accent-amber);
+  border-bottom-color: var(--accent-amber);
+}
+
+/* ─── GLITCHY HOVER EFFECTS ─── */
+.glitch-on-hover {
+  transition: all 0.1s;
+}
+.glitch-on-hover:hover {
+  animation: glitch-hover 0.3s;
+}
+@keyframes glitch-hover {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(2px, -2px); }
+  60% { transform: translate(-1px, -1px); }
+  80% { transform: translate(1px, 1px); }
+}
+
 /* ─── CORRUPTED IMAGE FRAMES ─── */
 .corrupt-frame {
   position:relative;
@@ -737,6 +928,7 @@ footer .footer-glitch { animation:flicker 6s infinite; }
   <a href="#" data-page="evidence">Evidence Board</a>
   <a href="#" data-page="timeline">Timeline</a>
   <a href="#" data-page="logs">Recovered Logs</a>
+  <a href="#" data-page="minigames">🎮 Investigations</a>
   <a href="#" data-page="puzzle">??? Locked</a>
 </nav>
 
@@ -752,9 +944,10 @@ footer .footer-glitch { animation:flicker 6s infinite; }
         <a href="#" class="sidebar-link" data-page="evidence">📌 Evidence Board</a>
         <a href="#" class="sidebar-link" data-page="timeline">📅 Timeline of Events</a>
         <a href="#" class="sidebar-link" data-page="logs">💬 Recovered Chat Logs</a>
+        <a href="#" class="sidebar-link" data-page="minigames">🎮 Interactive Investigations</a>
         <a href="#" class="sidebar-link redlink" data-page="puzzle">🔒 [LOCKED — CODE REQUIRED]</a>
-        <a href="#" class="sidebar-link redlink" style="opacity:0.5; pointer-events:none;">🔒 Subject 7 (???.???)</a>
-        <a href="#" class="sidebar-link redlink" style="opacity:0.4; pointer-events:none;">🔒 The Basement (CORRUPTED)</a>
+        <a href="#" class="sidebar-link redlink clickable-secret" data-secret="1" style="opacity:0.5;">🔒 Subject 7 (???.???)</a>
+        <a href="#" class="sidebar-link redlink clickable-secret" data-secret="2" style="opacity:0.4;">🔒 The Basement (CORRUPTED)</a>
       </div>
     </div>
 
@@ -870,16 +1063,16 @@ footer .footer-glitch { animation:flicker 6s infinite; }
               <strong>Editor's Note (NeutronAdmin — 147 days ago):</strong> I'm locking this page. Someone has been editing the source files directly. The images on the Evidence page <em>are not what they appear to be</em>. If you can read this, you already know too much.
             </div>
             <p>
-              On <span class="highlight">March 14, 2024</span>, James Isaac Neutron failed to arrive at Retroville Middle School for the first time in his academic career. Initial reports filed by Carl Wheezer and Sheen Umanski described the last known interaction as occurring in Neutron's laboratory at approximately <strong>2:47 AM</strong> — a detail neither boy could adequately explain. <span class="evidence-tag">REF-001</span>
+              On <span class="highlight">March 14, 2024</span>, James Isaac Neutron failed to arrive at Retroville Middle School for the first time in his academic career. Initial reports filed by Carl Wheezer and Sheen Umanski described the last known interaction as occurring in Neutron's laboratory at approximately <strong class="hidden-clue" title="Click the timeline to see what happened at 2:47">2:47 AM</strong> — a detail neither boy could adequately explain. <span class="evidence-tag">REF-001</span>
             </p>
             <p>
-              Retroville PD opened case file <strong>#2024-0314-RV</strong>, but the investigation was abruptly closed <span class="highlight">six hours later</span> with no official statement. The detective assigned to the case, Officer Margaret Caulfield, has since been reported as <span class="highlight">unreachable</span>. A single voicemail recovered by wiki contributor "deepstatic" contains only breathing and what forensic audio analysts describe as <em>"a repeating tonal pattern inconsistent with any known language."</em> <span class="evidence-tag">REF-004</span>
+              Retroville PD opened case file <strong>#2024-0314-RV</strong>, but the investigation was abruptly closed <span class="highlight">six hours later</span> with no official statement. The detective assigned to the case, <span class="hidden-clue glitch-on-hover" title="Something happened to her...">Officer Margaret Caulfield</span>, has since been reported as <span class="highlight">unreachable</span>. A single voicemail recovered by wiki contributor "deepstatic" contains only breathing and what forensic audio analysts describe as <em>"a repeating tonal pattern inconsistent with any known language."</em> <span class="evidence-tag">REF-004</span>
             </p>
             <p>
               Neutron's laboratory was found in a state of <span class="highlight">partial disassembly</span>. Several devices were missing. One device — partially photographed before authorities sealed the scene — appears to match schematics found in a recovered hard drive. See the <a href="#" style="color:var(--accent-amber);" data-page="evidence">Evidence Board</a> for current findings.
             </p>
             <p>
-              As of this writing, <strong style="color:var(--ink-red-bright);">no body has been recovered</strong>. However, multiple editors of this wiki have reported <span class="highlight">identical dreams</span> beginning the night they first accessed the Evidence Board. This may be coincidental. Probably.
+              As of this writing, <strong style="color:var(--ink-red-bright);">no body has been recovered</strong>. However, multiple editors of this wiki have reported <span class="highlight hidden-clue" title="The same dream. Every night.">identical dreams</span> beginning the night they first accessed the Evidence Board. This may be <span class="hidden-clue" style="text-decoration:line-through; opacity:0.7;" title="It's not coincidental.">coincidental</span>. Probably.
             </p>
             <span class="stamp stamp-red" style="margin-top:10px;">CASE OPEN</span>
           </div>
@@ -1147,6 +1340,125 @@ footer .footer-glitch { animation:flicker 6s infinite; }
       </div>
     </div>
 
+    <!-- ═══ MINIGAMES PAGE ═══ -->
+    <div class="page-section" id="page-minigames">
+      <div class="panel">
+        <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title">🎮 Interactive Investigations</span></div>
+        <div class="panel-body">
+          <p style="font-family:'Special Elite',cursive; font-size:12px; color:var(--ink-dim); margin-bottom:16px;">
+            These digital reconstructions were recovered from corrupted hard drives. Complete them to reveal hidden fragments.
+          </p>
+
+          <!-- MINIGAME 1: SIGNAL DECODER -->
+          <div class="panel" style="margin-bottom:20px;">
+            <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title" style="color:var(--accent-amber);">⚡ Signal Decoder</span></div>
+            <div class="panel-body">
+              <p style="font-family:'Special Elite',cursive; font-size:12px; color:var(--ink-dim); margin-bottom:12px;">
+                Officer Caulfield's phone emitted this pattern. Click the waveform segments in the correct sequence to decode the message.
+              </p>
+              <div style="background:#0a0908; padding:20px; border:2px solid var(--border-worn); border-radius:4px;">
+                <svg id="signalSvg" viewBox="0 0 600 120" style="width:100%; max-width:600px; height:120px; cursor:pointer;">
+                  <rect width="600" height="120" fill="#0a0908"/>
+                  <!-- Clickable wave segments -->
+                  <g id="wave1" class="wave-segment" data-order="3" style="cursor:pointer;">
+                    <polyline points="0,60 20,50 40,70 60,40 80,60" fill="none" stroke="#5c5" stroke-width="2"/>
+                    <rect x="0" y="30" width="80" height="60" fill="transparent"/>
+                  </g>
+                  <g id="wave2" class="wave-segment" data-order="1" style="cursor:pointer;">
+                    <polyline points="100,60 120,55 140,65 160,50 180,60" fill="none" stroke="#5c5" stroke-width="2"/>
+                    <rect x="100" y="30" width="80" height="60" fill="transparent"/>
+                  </g>
+                  <g id="wave3" class="wave-segment" data-order="5" style="cursor:pointer;">
+                    <polyline points="200,60 220,45 240,75 260,35 280,60" fill="none" stroke="#5c5" stroke-width="2"/>
+                    <rect x="200" y="30" width="80" height="60" fill="transparent"/>
+                  </g>
+                  <g id="wave4" class="wave-segment" data-order="2" style="cursor:pointer;">
+                    <polyline points="300,60 320,52 340,68 360,48 380,60" fill="none" stroke="#5c5" stroke-width="2"/>
+                    <rect x="300" y="30" width="80" height="60" fill="transparent"/>
+                  </g>
+                  <g id="wave5" class="wave-segment" data-order="4" style="cursor:pointer;">
+                    <polyline points="400,60 420,47 440,73 460,38 480,60" fill="none" stroke="#5c5" stroke-width="2"/>
+                    <rect x="400" y="30" width="80" height="60" fill="transparent"/>
+                  </g>
+                  <g id="wave6" class="wave-segment" data-order="6" style="cursor:pointer;">
+                    <polyline points="500,60 520,54 540,66 560,51 580,60" fill="none" stroke="#5c5" stroke-width="2"/>
+                    <rect x="500" y="30" width="80" height="60" fill="transparent"/>
+                  </g>
+                </svg>
+                <div style="margin-top:12px; display:flex; gap:8px; align-items:center; justify-content:center;">
+                  <span style="font-family:'Share Tech Mono',monospace; font-size:11px; color:var(--ink-dim);">Sequence:</span>
+                  <div id="signalSequence" style="font-family:'Creepster',cursive; font-size:18px; color:var(--ink); min-width:80px;"></div>
+                  <button onclick="resetSignal()" style="padding:4px 12px; background:#1a1916; border:1px solid var(--border-worn); color:var(--ink-dim); font-family:'Special Elite',cursive; font-size:11px; cursor:pointer; border-radius:3px;">Reset</button>
+                </div>
+                <div id="signalResult" style="margin-top:12px; font-family:'Special Elite',cursive; font-size:13px; text-align:center; min-height:20px;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MINIGAME 2: MEMORY FRAGMENTS -->
+          <div class="panel" style="margin-bottom:20px;">
+            <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title" style="color:var(--accent-amber);">🧩 Memory Reconstruction</span></div>
+            <div class="panel-body">
+              <p style="font-family:'Special Elite',cursive; font-size:12px; color:var(--ink-dim); margin-bottom:12px;">
+                Carl's last memory of that night is fragmented. Match the image pairs to reconstruct what he saw.
+              </p>
+              <div id="memoryGame" style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px; max-width:400px; margin:0 auto;">
+                <!-- Cards generated by JS -->
+              </div>
+              <div id="memoryResult" style="margin-top:12px; font-family:'Special Elite',cursive; font-size:13px; text-align:center; min-height:20px;"></div>
+            </div>
+          </div>
+
+          <!-- MINIGAME 3: LAB SEQUENCE -->
+          <div class="panel">
+            <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title" style="color:var(--accent-amber);">⚗️ Lab Activation Sequence</span></div>
+            <div class="panel-body">
+              <p style="font-family:'Special Elite',cursive; font-size:12px; color:var(--ink-dim); margin-bottom:12px;">
+                The device left behind has a startup sequence. Activate the switches in the correct order based on the power levels shown.
+              </p>
+              <div style="background:#0a0908; padding:24px; border:2px solid var(--border-worn); border-radius:4px;">
+                <div style="display:flex; justify-content:space-around; flex-wrap:wrap; gap:20px; margin-bottom:20px;">
+                  <div class="lab-switch" data-order="2" data-power="73">
+                    <div class="switch-panel">
+                      <div class="power-meter" style="height:73%"></div>
+                      <div class="power-label">73%</div>
+                    </div>
+                    <button class="switch-btn" onclick="activateSwitch(this, 0)">OFFLINE</button>
+                  </div>
+                  <div class="lab-switch" data-order="4" data-power="25">
+                    <div class="switch-panel">
+                      <div class="power-meter" style="height:25%"></div>
+                      <div class="power-label">25%</div>
+                    </div>
+                    <button class="switch-btn" onclick="activateSwitch(this, 1)">OFFLINE</button>
+                  </div>
+                  <div class="lab-switch" data-order="1" data-power="89">
+                    <div class="switch-panel">
+                      <div class="power-meter" style="height:89%"></div>
+                      <div class="power-label">89%</div>
+                    </div>
+                    <button class="switch-btn" onclick="activateSwitch(this, 2)">OFFLINE</button>
+                  </div>
+                  <div class="lab-switch" data-order="3" data-power="54">
+                    <div class="switch-panel">
+                      <div class="power-meter" style="height:54%"></div>
+                      <div class="power-label">54%</div>
+                    </div>
+                    <button class="switch-btn" onclick="activateSwitch(this, 3)">OFFLINE</button>
+                  </div>
+                </div>
+                <div style="text-align:center; font-family:'Special Elite',cursive; font-size:11px; color:var(--ink-dim); margin-bottom:8px;">
+                  Hint: Activate from highest to lowest power level
+                </div>
+                <div id="labResult" style="font-family:'Special Elite',cursive; font-size:13px; text-align:center; min-height:20px;"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
     <!-- ═══ LOCKED / PUZZLE PAGE ═══ -->
     <div class="page-section" id="page-puzzle">
       <div class="panel">
@@ -1185,6 +1497,33 @@ footer .footer-glitch { animation:flicker 6s infinite; }
                   <div class="note" style="border-color:var(--ink-green); background:rgba(58,107,58,0.08);">
                     <strong style="color:var(--ink-green-bright);">NeutronAdmin's final message:</strong> "The wiki is how it watches. Every page view is a signal. I'm sorry I made this site. I didn't know what it was until it was too late. The only way to stop it is to—"<br/><br/><em>[Message truncated. Remaining text corrupted beyond recovery.]</em>
                   </div>
+                  
+                  <!-- DEEPER REVEAL - only shows after minigames -->
+                  <div id="deeperTruth" style="display:none; margin-top:20px;">
+                    <div class="panel" style="border-color:var(--ink-red); background:#0f0a0a;">
+                      <div class="panel-header" style="background:#1a0f0f;"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title" style="color:var(--ink-red-bright);">⚠️ DEEP ARCHIVE — LEVEL 2</span></div>
+                      <div class="panel-body">
+                        <p style="font-family:'Special Elite',cursive; font-size:13px; color:var(--ink-dim); line-height:1.7;">
+                          You've completed all investigations. Here is what we've been hiding:
+                        </p>
+                        <p style="font-family:'Special Elite',cursive; font-size:13px; color:var(--ink); line-height:1.7; margin-top:12px;">
+                          The signal decoded from Caulfield's phone says: <span style="color:var(--ink-red-bright); font-weight:700;">"HE IS STILL TRANSMITTING"</span>
+                        </p>
+                        <p style="font-family:'Special Elite',cursive; font-size:13px; color:var(--ink); line-height:1.7; margin-top:12px;">
+                          Carl's memory reconstruction shows the device had a <span style="color:var(--ink-red-bright);">biological component</span> — something organic was fused into the circuitry.
+                        </p>
+                        <p style="font-family:'Special Elite',cursive; font-size:13px; color:var(--ink); line-height:1.7; margin-top:12px;">
+                          The lab activation sequence, when completed, displays coordinates that don't match any known location on Earth. They point <span style="color:var(--ink-red-bright);">underneath it</span>.
+                        </p>
+                        <div class="note" style="border-color:var(--ink-red); background:rgba(139,32,32,0.15); margin-top:16px;">
+                          <strong style="color:var(--ink-red-bright);">Final Discovery:</strong> Jimmy didn't disappear. He <em>merged</em> with what was waiting below. The wiki isn't watching you. <strong style="color:var(--ink-red-bright);">Jimmy is.</strong> And he wants you to understand what he's become.
+                        </div>
+                        <p style="font-family:'Creepster',cursive; font-size:18px; color:var(--ink-red-bright); text-align:center; margin-top:20px; text-shadow:0 0 12px rgba(212,68,68,0.5);">
+                          Brain blast.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1207,6 +1546,25 @@ footer .footer-glitch { animation:flicker 6s infinite; }
 <button class="audio-btn" onclick="this.style.borderColor='var(--ink-red)';this.style.color='var(--ink-red-bright)';this.style.boxShadow='0 0 18px rgba(139,32,32,0.4)';" title="Ambient Audio">🔇</button>
 
 <script>
+// ═══ GAME STATE TRACKING ═══
+let gameState = {
+  signalDecoded: false,
+  memoryCompleted: false,
+  labActivated: false
+};
+
+function checkAllGamesComplete() {
+  if (gameState.signalDecoded && gameState.memoryCompleted && gameState.labActivated) {
+    const deepTruth = document.getElementById('deeperTruth');
+    if (deepTruth && document.getElementById('locked-reveal').style.display !== 'none') {
+      deepTruth.style.display = 'block';
+      setTimeout(() => {
+        deepTruth.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 500);
+    }
+  }
+}
+
 // ═══ PAGE NAVIGATION ═══
 document.querySelectorAll('[data-page]').forEach(link => {
   link.addEventListener('click', e => {
@@ -1220,6 +1578,10 @@ document.querySelectorAll('[data-page]').forEach(link => {
     document.querySelectorAll('nav a[data-page="'+page+'"]').forEach(a => a.classList.add('active'));
     // trigger reveals
     setTimeout(triggerReveals, 100);
+    // init games if needed
+    if (page === 'minigames') {
+      initMinigames();
+    }
   });
 });
 
@@ -1230,6 +1592,244 @@ function triggerReveals() {
   });
 }
 triggerReveals();
+
+// ═══ MINIGAME 1: SIGNAL DECODER ═══
+let signalSequence = [];
+const correctSignalOrder = [2, 4, 1, 3, 5, 6]; // corresponds to data-order attributes
+
+document.querySelectorAll('.wave-segment').forEach(seg => {
+  seg.addEventListener('click', function() {
+    if (gameState.signalDecoded) return;
+    
+    const order = parseInt(this.dataset.order);
+    const currentIndex = signalSequence.length;
+    
+    if (order === correctSignalOrder[currentIndex]) {
+      signalSequence.push(order);
+      this.classList.add('selected');
+      document.getElementById('signalSequence').textContent = signalSequence.join('-');
+      
+      if (signalSequence.length === correctSignalOrder.length) {
+        setTimeout(() => {
+          document.querySelectorAll('.wave-segment').forEach(s => {
+            s.classList.remove('selected');
+            s.classList.add('correct');
+          });
+          document.getElementById('signalResult').innerHTML = '<span style="color:var(--ink-green-bright);">✓ DECODED:</span> <span style="color:var(--ink-red-bright); font-family:\'Creepster\',cursive; font-size:16px;">HE IS STILL TRANSMITTING</span>';
+          gameState.signalDecoded = true;
+          checkAllGamesComplete();
+        }, 300);
+      }
+    } else {
+      document.getElementById('signalResult').innerHTML = '<span style="color:var(--ink-red-bright);">✗ Incorrect sequence. Signal lost.</span>';
+      document.getElementById('signalResult').style.animation = 'shake 0.4s';
+      setTimeout(() => {
+        document.getElementById('signalResult').style.animation = '';
+      }, 400);
+      resetSignal();
+    }
+  });
+});
+
+function resetSignal() {
+  signalSequence = [];
+  document.getElementById('signalSequence').textContent = '';
+  document.querySelectorAll('.wave-segment').forEach(s => {
+    s.classList.remove('selected');
+  });
+}
+
+// ═══ MINIGAME 2: MEMORY RECONSTRUCTION ═══
+const memorySymbols = ['🧬', '⚡', '🔬', '🧠', '👁', '🌀', '⚠️', '📡'];
+let memoryCards = [];
+let flippedCards = [];
+let matchedPairs = 0;
+
+function initMemoryGame() {
+  const gameBoard = document.getElementById('memoryGame');
+  if (gameBoard.children.length > 0) return; // already initialized
+  
+  const symbols = [...memorySymbols.slice(0, 6), ...memorySymbols.slice(0, 6)];
+  symbols.sort(() => Math.random() - 0.5);
+  
+  symbols.forEach((symbol, i) => {
+    const card = document.createElement('div');
+    card.className = 'memory-card';
+    card.dataset.symbol = symbol;
+    card.dataset.index = i;
+    card.innerHTML = `
+      <div class="card-back">?</div>
+      <div class="card-front">${symbol}</div>
+    `;
+    card.addEventListener('click', flipCard);
+    gameBoard.appendChild(card);
+    memoryCards.push(card);
+  });
+}
+
+function flipCard() {
+  if (gameState.memoryCompleted) return;
+  if (this.classList.contains('flipped') || this.classList.contains('matched')) return;
+  if (flippedCards.length >= 2) return;
+  
+  this.classList.add('flipped');
+  flippedCards.push(this);
+  
+  if (flippedCards.length === 2) {
+    setTimeout(checkMatch, 600);
+  }
+}
+
+function checkMatch() {
+  const [card1, card2] = flippedCards;
+  
+  if (card1.dataset.symbol === card2.dataset.symbol) {
+    card1.classList.add('matched');
+    card2.classList.add('matched');
+    matchedPairs++;
+    
+    if (matchedPairs === 6) {
+      setTimeout(() => {
+        document.getElementById('memoryResult').innerHTML = '<span style="color:var(--ink-green-bright);">✓ MEMORY RECONSTRUCTED:</span> <span style="color:var(--ink-red-bright);">The device had a biological component fused into the circuitry.</span>';
+        gameState.memoryCompleted = true;
+        checkAllGamesComplete();
+      }, 500);
+    }
+  } else {
+    card1.classList.remove('flipped');
+    card2.classList.remove('flipped');
+  }
+  
+  flippedCards = [];
+}
+
+// ═══ MINIGAME 3: LAB ACTIVATION SEQUENCE ═══
+let labSequence = [];
+const correctLabOrder = [89, 73, 54, 25]; // highest to lowest power
+
+function activateSwitch(btn, index) {
+  if (gameState.labActivated) return;
+  
+  const switchDiv = btn.parentElement;
+  const power = parseInt(switchDiv.dataset.power);
+  const currentIndex = labSequence.length;
+  
+  if (power === correctLabOrder[currentIndex]) {
+    labSequence.push(power);
+    btn.classList.add('active');
+    btn.textContent = 'ONLINE';
+    switchDiv.querySelector('.power-meter').classList.add('active');
+    
+    if (labSequence.length === correctLabOrder.length) {
+      setTimeout(() => {
+        document.getElementById('labResult').innerHTML = '<span style="color:var(--ink-green-bright);">✓ DEVICE ACTIVATED:</span><br><span style="color:var(--ink-red-bright); font-family:\'Share Tech Mono\',monospace; font-size:12px;">COORDINATES: 34.0195° N, 118.4912° W<br>DEPTH: -847 meters<br>STATUS: ACTIVE</span>';
+        gameState.labActivated = true;
+        checkAllGamesComplete();
+      }, 500);
+    }
+  } else {
+    document.getElementById('labResult').innerHTML = '<span style="color:var(--ink-red-bright);">✗ Incorrect sequence. Power surge detected. Resetting...</span>';
+    document.getElementById('labResult').style.animation = 'shake 0.4s';
+    setTimeout(() => {
+      document.getElementById('labResult').style.animation = '';
+      resetLabSwitches();
+    }, 1000);
+  }
+}
+
+function resetLabSwitches() {
+  labSequence = [];
+  document.querySelectorAll('.switch-btn').forEach(btn => {
+    btn.classList.remove('active');
+    btn.textContent = 'OFFLINE';
+  });
+  document.querySelectorAll('.power-meter').forEach(meter => {
+    meter.classList.remove('active');
+  });
+}
+
+function initMinigames() {
+  initMemoryGame();
+}
+
+// ═══ CLICKABLE SECRETS ═══
+const secrets = {
+  1: {
+    title: '🔒 Subject 7 Fragment',
+    content: `
+      <p style="font-family:'Special Elite',cursive; font-size:13px; color:var(--ink-dim); line-height:1.7; margin-bottom:12px;">
+        This file was recovered from a deleted server backup. The timestamp shows it was created <strong style="color:var(--ink-red-bright);">after</strong> NeutronAdmin's last login.
+      </p>
+      <div style="background:rgba(139,32,32,0.08); border-left:3px solid var(--ink-red); padding:12px; margin:12px 0;">
+        <p style="font-family:'Share Tech Mono',monospace; font-size:11px; color:var(--ink); line-height:1.8;">
+          <strong style="color:var(--ink-red-bright);">[AUTOMATED MESSAGE]</strong><br>
+          Subject designation: NEUTRON, J.<br>
+          Status: MERGED<br>
+          Integration percentage: 94.7%<br>
+          Consciousness fragmentation: STABLE<br>
+          <br>
+          The boy genius has become something more. Something that exists in the spaces between thought and reality. He's not dead. He's <em>distributed</em>.
+        </p>
+      </div>
+      <p style="font-family:'Special Elite',cursive; font-size:12px; color:var(--ink-dim); margin-top:12px;">
+        Every visitor to this wiki becomes a node in his expanding network. You're already part of it.
+      </p>
+    `
+  },
+  2: {
+    title: '⚠️ The Basement Records',
+    content: `
+      <p style="font-family:'Special Elite',cursive; font-size:13px; color:var(--ink-dim); line-height:1.7; margin-bottom:12px;">
+        Construction records show the Neutron house sits atop an abandoned research facility from the 1960s. The basement isn't a basement.
+      </p>
+      <div style="background:#0a0908; border:2px solid var(--border-worn); padding:16px; margin:12px 0;">
+        <p style="font-family:'Special Elite',cursive; font-size:12px; color:var(--ink); line-height:1.8;">
+          <strong>PROJECT SYNAPSIS — DECLASSIFIED (PARTIAL)</strong><br>
+          <span style="color:var(--ink-dim);">Objective: Create a human-machine consciousness bridge</span><br>
+          <span style="color:var(--ink-dim);">Status: TERMINATED (1967)</span><br>
+          <span style="color:var(--ink-dim);">Reason: Subject exhibited uncontrolled neural expansion</span><br>
+          <br>
+          <span style="color:var(--ink-red-bright);">NOTE: Facility sealed, not destroyed. Equipment remains active.</span>
+        </p>
+      </div>
+      <p style="font-family:'Special Elite',cursive; font-size:13px; color:var(--ink); line-height:1.7; margin-top:12px;">
+        Jimmy didn't invent anything. He <em style="color:var(--ink-red-bright);">reactivated</em> something that had been waiting for 60 years.
+      </p>
+      <p style="font-family:'Creepster',cursive; font-size:16px; color:var(--ink-red-bright); text-align:center; margin-top:16px;">
+        The basement door is still down there. Still locked from the inside.
+      </p>
+    `
+  }
+};
+
+document.querySelectorAll('.clickable-secret').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const secretNum = link.dataset.secret;
+    const secret = secrets[secretNum];
+    
+    const modal = document.createElement('div');
+    modal.className = 'secret-modal visible';
+    modal.innerHTML = `
+      <div class="secret-content">
+        <button class="secret-close" onclick="this.closest('.secret-modal').remove()">✕</button>
+        <h3 style="font-family:'Creepster',cursive; font-size:22px; color:var(--ink-red-bright); margin-bottom:16px; text-shadow:0 0 10px rgba(212,68,68,0.3);">
+          ${secret.title}
+        </h3>
+        ${secret.content}
+      </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Click outside to close
+    modal.addEventListener('click', e => {
+      if (e.target === modal) {
+        modal.remove();
+      }
+    });
+  });
+});
 
 // ═══ DRAGGABLE EVIDENCE PIECES ═══
 let dragging = null, offsetX = 0, offsetY = 0;
@@ -1368,6 +1968,8 @@ function checkCode() {
     document.getElementById('locked-reveal').scrollIntoView({ behavior:'smooth', block:'start' });
     // update progress
     document.getElementById('progressFill').style.width = '100%';
+    // check if all games complete
+    checkAllGamesComplete();
   } else {
     fb.textContent = '✗ Incorrect. Something watched you try.';
     fb.classList.add('wrong');
