@@ -813,6 +813,33 @@ footer .footer-glitch { animation:flicker 6s infinite; }
   80% { transform: translate(1px, 1px); }
 }
 
+/* ─── OMEGA PUZZLE ─── */
+.omega-digit {
+  width:42px; height:58px;
+  background:#0f0e0c;
+  border:2px solid var(--ink-red);
+  border-radius:4px;
+  text-align:center;
+  font-family:'Creepster',cursive;
+  font-size:26px;
+  color:var(--ink-red-bright);
+  caret-color: var(--ink-red-bright);
+  box-shadow: inset 0 3px 8px rgba(139,32,32,0.3), 0 2px 4px rgba(0,0,0,0.4), 0 0 10px rgba(139,32,32,0.2);
+  outline:none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.omega-digit:focus {
+  border-color: var(--ink-red-bright);
+  box-shadow: inset 0 3px 8px rgba(139,32,32,0.3), 0 0 20px rgba(212,68,68,0.4);
+}
+
+/* ─── HIDDEN NUMBERS ─── */
+.hidden-number {
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
+}
+
 /* ─── CORRUPTED IMAGE FRAMES ─── */
 .corrupt-frame {
   position:relative;
@@ -930,6 +957,7 @@ footer .footer-glitch { animation:flicker 6s infinite; }
   <a href="#" data-page="logs">Recovered Logs</a>
   <a href="#" data-page="minigames">🎮 Investigations</a>
   <a href="#" data-page="puzzle">??? Locked</a>
+  <a href="#" data-page="ultimate" style="color:var(--ink-red-bright); text-shadow:0 0 8px rgba(212,68,68,0.3);">⚠️ Ω</a>
 </nav>
 
 <!-- MAIN SITE BODY -->
@@ -946,8 +974,12 @@ footer .footer-glitch { animation:flicker 6s infinite; }
         <a href="#" class="sidebar-link" data-page="logs">💬 Recovered Chat Logs</a>
         <a href="#" class="sidebar-link" data-page="minigames">🎮 Interactive Investigations</a>
         <a href="#" class="sidebar-link redlink" data-page="puzzle">🔒 [LOCKED — CODE REQUIRED]</a>
+        <a href="#" class="sidebar-link" data-page="carl">👤 Carl Wheezer Profile</a>
+        <a href="#" class="sidebar-link" data-page="sheen">👤 Sheen Estevez Profile</a>
+        <a href="#" class="sidebar-link" data-page="judy">👤 Judy Neutron Profile</a>
         <a href="#" class="sidebar-link redlink clickable-secret" data-secret="1" style="opacity:0.5;">🔒 Subject 7 (???.???)</a>
         <a href="#" class="sidebar-link redlink clickable-secret" data-secret="2" style="opacity:0.4;">🔒 The Basement (CORRUPTED)</a>
+        <a href="#" class="sidebar-link redlink" data-page="ultimate" style="border-top:2px solid var(--ink-red); margin-top:8px; padding-top:16px; color:var(--ink-red-bright);">⚠️ THE OMEGA SEQUENCE</a>
       </div>
     </div>
 
@@ -1247,12 +1279,12 @@ footer .footer-glitch { animation:flicker 6s infinite; }
               <div class="timeline-desc">Jimmy Neutron begins construction on an unnamed device in his home laboratory. Carl Wheezer reports seeing blueprints "spread across every surface." Jimmy refuses to explain the project.</div>
             </div>
             <div class="timeline-item reveal">
-              <div class="timeline-date">February 12, 2024</div>
+              <div class="timeline-date">February 1<span class="hidden-number" style="opacity:0.2;">2</span>, 2024</div>
               <div class="timeline-desc">Retroville experiences an unexplained 4-second power blackout at 3:00 AM. Only Neutron's block is affected. No utility company record of the event exists. <span class="evidence-tag">REF-003</span></div>
             </div>
             <div class="timeline-item reveal">
               <div class="timeline-date">February 28, 2024</div>
-              <div class="timeline-desc">Sheen Umanski tells Carl that Jimmy "laughed differently now." Carl describes it as a joke but later admits in recovered chat logs that it "didn't sound like Jimmy." <span class="evidence-tag">REF-007</span></div>
+              <div class="timeline-desc">Sheen Umanski tells Carl that Jimmy "laughed differently now." Carl describes it as a joke but later admits in recovered chat logs that it "didn't sound like Jimmy." <span class="evidence-tag">REF-00<span class="hidden-number" style="opacity:0.25;">7</span></span></div>
             </div>
             <div class="timeline-item reveal">
               <div class="timeline-date" style="color:var(--ink-red-bright); font-size:14px;">★ March 14, 2024 — THE LAST NIGHT</div>
@@ -1315,7 +1347,7 @@ footer .footer-glitch { animation:flicker 6s infinite; }
             <div class="panel-body">
               <div class="chat-log">
                 <div class="chat-msg"><span class="ts">09:02</span><span class="sender">M.Caulfield</span>: Boys' stories match on timing. Off on details. Carl said "2:47" three times unprompted.</div>
-                <div class="chat-msg"><span class="ts">10:15</span><span class="sender">M.Caulfield</span>: Lab has been accessed. Not by us. Locks show keypad entry at 06:30 AM.</div>
+                <div class="chat-msg"><span class="ts">10:1<span class="hidden-number" style="opacity:0.2;">5</span></span><span class="sender">M.Caulfield</span>: Lab has been accessed. Not by us. Locks show keypad entry at 06:30 AM.</div>
                 <div class="chat-msg"><span class="ts">10:16</span><span class="sender">M.Caulfield</span>: Keypad code was correct. Hugh Neutron doesn't know the code.</div>
                 <div class="chat-msg"><span class="ts">11:44</span><span class="sender">M.Caulfield</span>: Found something under the chair. Small. Metal. Warm.</div>
                 <div class="chat-msg" style="background:rgba(139,32,32,0.06);"><span class="ts" style="color:var(--ink-red-bright);">12:08</span><span class="sender red">M.Caulfield</span>: I shouldn't be writing this. The object is VIBRATING.</div>
@@ -1330,7 +1362,7 @@ footer .footer-glitch { animation:flicker 6s infinite; }
             <div class="panel-body">
               <div class="chat-log">
                 <div class="chat-msg" style="background:rgba(139,32,32,0.08);"><span class="ts" style="color:var(--ink-red-bright);">00:00</span><span class="sender red">[NO SENDER]</span>: <strong>if you have reached this page you have been logged.</strong></div>
-                <div class="chat-msg" style="background:rgba(139,32,32,0.08);"><span class="ts" style="color:var(--ink-red-bright);">00:00</span><span class="sender red">[NO SENDER]</span>: <strong>the code is not what you think it is.</strong></div>
+                <div class="chat-msg" style="background:rgba(139,32,32,0.08);"><span class="ts" style="color:var(--ink-red-bright);">00:0<span class="hidden-number" style="opacity:0.2;">0</span></span><span class="sender red">[NO SENDER]</span>: <strong>the code is not what you think it is.</strong></div>
                 <div class="chat-msg" style="background:rgba(139,32,32,0.08);"><span class="ts" style="color:var(--ink-red-bright);">00:00</span><span class="sender red">[NO SENDER]</span>: <strong>jimmy is still here.</strong></div>
                 <div class="chat-msg" style="background:rgba(139,32,32,0.08);"><span class="ts" style="color:var(--ink-red-bright);">00:00</span><span class="sender red">[NO SENDER]</span>: <strong>and he can see you reading this.</strong></div>
               </div>
@@ -1342,6 +1374,447 @@ footer .footer-glitch { animation:flicker 6s infinite; }
 
     <!-- ═══ MINIGAMES PAGE ═══ -->
     <div class="page-section" id="page-minigames">
+      <div class="panel">
+        <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title">🎮 Interactive Investigations</span></div>
+        <div class="panel-body">
+          <p style="font-family:'Special Elite',cursive; font-size:12px; color:var(--ink-dim); margin-bottom:16px;">
+            These digital reconstructions were recovered from corrupted hard drives. Complete them to reveal hidden fragments.
+          </p>
+
+          <!-- MINIGAME 1: SIGNAL DECODER -->
+          <div class="panel" style="margin-bottom:20px;">
+            <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title" style="color:var(--accent-amber);">⚡ Signal Decoder</span></div>
+            <div class="panel-body">
+              <p style="font-family:'Special Elite',cursive; font-size:12px; color:var(--ink-dim); margin-bottom:12px;">
+                Officer Caulfield's phone emitted this pattern. Click the waveform segments in the correct sequence to decode the message.
+              </p>
+              <div style="background:#0a0908; padding:20px; border:2px solid var(--border-worn); border-radius:4px;">
+                <svg id="signalSvg" viewBox="0 0 600 120" style="width:100%; max-width:600px; height:120px; cursor:pointer;">
+                  <rect width="600" height="120" fill="#0a0908"/>
+                  <!-- Clickable wave segments -->
+                  <g id="wave1" class="wave-segment" data-order="3" style="cursor:pointer;">
+                    <polyline points="0,60 20,50 40,70 60,40 80,60" fill="none" stroke="#5c5" stroke-width="2"/>
+                    <rect x="0" y="30" width="80" height="60" fill="transparent"/>
+                  </g>
+                  <g id="wave2" class="wave-segment" data-order="1" style="cursor:pointer;">
+                    <polyline points="100,60 120,55 140,65 160,50 180,60" fill="none" stroke="#5c5" stroke-width="2"/>
+                    <rect x="100" y="30" width="80" height="60" fill="transparent"/>
+                  </g>
+                  <g id="wave3" class="wave-segment" data-order="5" style="cursor:pointer;">
+                    <polyline points="200,60 220,45 240,75 260,35 280,60" fill="none" stroke="#5c5" stroke-width="2"/>
+                    <rect x="200" y="30" width="80" height="60" fill="transparent"/>
+                  </g>
+                  <g id="wave4" class="wave-segment" data-order="2" style="cursor:pointer;">
+                    <polyline points="300,60 320,52 340,68 360,48 380,60" fill="none" stroke="#5c5" stroke-width="2"/>
+                    <rect x="300" y="30" width="80" height="60" fill="transparent"/>
+                  </g>
+                  <g id="wave5" class="wave-segment" data-order="4" style="cursor:pointer;">
+                    <polyline points="400,60 420,47 440,73 460,38 480,60" fill="none" stroke="#5c5" stroke-width="2"/>
+                    <rect x="400" y="30" width="80" height="60" fill="transparent"/>
+                  </g>
+                  <g id="wave6" class="wave-segment" data-order="6" style="cursor:pointer;">
+                    <polyline points="500,60 520,54 540,66 560,51 580,60" fill="none" stroke="#5c5" stroke-width="2"/>
+                    <rect x="500" y="30" width="80" height="60" fill="transparent"/>
+                  </g>
+                </svg>
+                <div style="margin-top:12px; display:flex; gap:8px; align-items:center; justify-content:center;">
+                  <span style="font-family:'Share Tech Mono',monospace; font-size:11px; color:var(--ink-dim);">Sequence:</span>
+                  <div id="signalSequence" style="font-family:'Creepster',cursive; font-size:18px; color:var(--ink); min-width:80px;"></div>
+                  <button onclick="resetSignal()" style="padding:4px 12px; background:#1a1916; border:1px solid var(--border-worn); color:var(--ink-dim); font-family:'Special Elite',cursive; font-size:11px; cursor:pointer; border-radius:3px;">Reset</button>
+                </div>
+                <div id="signalResult" style="margin-top:12px; font-family:'Special Elite',cursive; font-size:13px; text-align:center; min-height:20px;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MINIGAME 2: MEMORY FRAGMENTS -->
+          <div class="panel" style="margin-bottom:20px;">
+            <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title" style="color:var(--accent-amber);">🧩 Memory Reconstruction</span></div>
+            <div class="panel-body">
+              <p style="font-family:'Special Elite',cursive; font-size:12px; color:var(--ink-dim); margin-bottom:12px;">
+                Carl's last memory of that night is fragmented. Match the image pairs to reconstruct what he saw.
+              </p>
+              <div id="memoryGame" style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px; max-width:400px; margin:0 auto;">
+                <!-- Cards generated by JS -->
+              </div>
+              <div id="memoryResult" style="margin-top:12px; font-family:'Special Elite',cursive; font-size:13px; text-align:center; min-height:20px;"></div>
+            </div>
+          </div>
+
+          <!-- MINIGAME 3: LAB SEQUENCE -->
+          <div class="panel">
+            <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title" style="color:var(--accent-amber);">⚗️ Lab Activation Sequence</span></div>
+            <div class="panel-body">
+              <p style="font-family:'Special Elite',cursive; font-size:12px; color:var(--ink-dim); margin-bottom:12px;">
+                The device left behind has a startup sequence. Activate the switches in the correct order based on the power levels shown.
+              </p>
+              <div style="background:#0a0908; padding:24px; border:2px solid var(--border-worn); border-radius:4px;">
+                <div style="display:flex; justify-content:space-around; flex-wrap:wrap; gap:20px; margin-bottom:20px;">
+                  <div class="lab-switch" data-order="2" data-power="73">
+                    <div class="switch-panel">
+                      <div class="power-meter" style="height:73%"></div>
+                      <div class="power-label">73%</div>
+                    </div>
+                    <button class="switch-btn" onclick="activateSwitch(this, 0)">OFFLINE</button>
+                  </div>
+                  <div class="lab-switch" data-order="4" data-power="25">
+                    <div class="switch-panel">
+                      <div class="power-meter" style="height:25%"></div>
+                      <div class="power-label">25%</div>
+                    </div>
+                    <button class="switch-btn" onclick="activateSwitch(this, 1)">OFFLINE</button>
+                  </div>
+                  <div class="lab-switch" data-order="1" data-power="89">
+                    <div class="switch-panel">
+                      <div class="power-meter" style="height:89%"></div>
+                      <div class="power-label">89%</div>
+                    </div>
+                    <button class="switch-btn" onclick="activateSwitch(this, 2)">OFFLINE</button>
+                  </div>
+                  <div class="lab-switch" data-order="3" data-power="54">
+                    <div class="switch-panel">
+                      <div class="power-meter" style="height:54%"></div>
+                      <div class="power-label">54%</div>
+                    </div>
+                    <button class="switch-btn" onclick="activateSwitch(this, 3)">OFFLINE</button>
+                  </div>
+                </div>
+                <div style="text-align:center; font-family:'Special Elite',cursive; font-size:11px; color:var(--ink-dim); margin-bottom:8px;">
+                  Hint: Activate from highest to lowest power level
+                </div>
+                <div id="labResult" style="font-family:'Special Elite',cursive; font-size:13px; text-align:center; min-height:20px;"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ CARL WHEEZER PAGE ═══ -->
+    <div class="page-section" id="page-carl">
+      <div class="panel">
+        <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title">Profile — Carl Wheezer</span></div>
+        <div class="panel-body">
+          
+          <div class="infobox">
+            <div class="infobox-head">Carl Wheezer</div>
+            <div class="infobox-img">
+              <div class="corrupt-frame" style="width:100%;height:100%;position:relative;">
+                <div class="portrait-canvas">
+                  <svg viewBox="0 0 240 160" style="width:100%;height:100%;" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <radialGradient id="carlFaceGrad" cx="50%" cy="40%" r="55%">
+                        <stop offset="0%" stop-color="#d4a574"/>
+                        <stop offset="70%" stop-color="#b8865a"/>
+                        <stop offset="100%" stop-color="#8a6342"/>
+                      </radialGradient>
+                    </defs>
+                    <rect width="240" height="160" fill="#0e0d0b"/>
+                    <!-- chubby face -->
+                    <ellipse cx="120" cy="80" rx="55" ry="60" fill="url(#carlFaceGrad)"/>
+                    <!-- glasses -->
+                    <ellipse cx="95" cy="70" rx="18" ry="20" fill="#fff" stroke="#2a2520" stroke-width="3"/>
+                    <ellipse cx="145" cy="70" rx="18" ry="20" fill="#fff" stroke="#2a2520" stroke-width="3"/>
+                    <line x1="113" y1="70" x2="127" y2="70" stroke="#2a2520" stroke-width="3"/>
+                    <!-- pupils -->
+                    <circle cx="95" cy="72" r="8" fill="#1a1005"/>
+                    <circle cx="145" cy="72" r="8" fill="#1a1005"/>
+                    <!-- worried expression -->
+                    <path d="M100,100 Q120,110 140,100" stroke="#6a4a30" stroke-width="2.5" fill="none"/>
+                    <!-- hair tuft -->
+                    <ellipse cx="120" cy="35" rx="30" ry="18" fill="#3a2a1a"/>
+                    <!-- nervous sweat drop -->
+                    <ellipse cx="70" cy="65" rx="4" ry="6" fill="rgba(150,180,200,0.6)"/>
+                    <!-- number hidden in glasses reflection (3) -->
+                    <text x="90" y="68" font-size="8" fill="rgba(201,185,154,0.15)" font-family="monospace" class="hidden-number">3</text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <table>
+              <tr><td>Full Name</td><td>Carl Wheezer</td></tr>
+              <tr><td>Age</td><td>11</td></tr>
+              <tr><td>Status</td><td><span style="color:var(--ink-green-bright);">WITNESS</span></td></tr>
+              <tr><td>Last Contact</td><td>March <span class="hidden-number" style="color:rgba(201,185,154,0.25);">14</span>, 2024</td></tr>
+              <tr><td>Reliability</td><td style="color:var(--accent-amber);">QUESTIONABLE</td></tr>
+            </table>
+          </div>
+
+          <div class="wiki-text">
+            <p>
+              Carl Wheezer, Jimmy Neutron's closest friend, was present during the incident on March 14th. His testimony has been the primary source of information, though investigators note several <span class="highlight">inconsistencies</span> in his account.
+            </p>
+            <div class="note">
+              <strong>Investigator's Note:</strong> Carl's story has changed <span class="hidden-number" style="opacity:0.3;">7</span> times. Each retelling adds new details he "forgot" to mention before. Most concerning: he now claims to remember things that happened <em>after</em> he says he left the lab.
+            </div>
+            <p>
+              During initial questioning, Carl appeared unusually calm, describing the events with what Officer Caulfield noted as "disturbing precision." He repeated the timestamp "2:47 AM" exactly <strong class="hidden-clue" title="He said it seven times">seven times</strong> during the <span class="hidden-number" style="color:rgba(201,185,154,0.2);">45</span>-minute interview, despite not wearing a watch that night.
+            </p>
+            <p>
+              In recovered chat logs, Carl messages Sheen: <em style="color:var(--ink-dim);">"I can still hear it. The sound when the lights came back on. Like glass breaking but from inside the air."</em> When asked about this in person, Carl claims he never sent the message. Digital forensics confirm it came from his device.
+            </p>
+            <p style="color:var(--ink-red-bright);">
+              Carl has not returned to school since March <span class="hidden-number" style="opacity:0.25;">16</span>th. His parents report he spends most of his time in his room, staring at the wall. Neighbors report hearing him talking to someone late at night, though he lives alone in his room.
+            </p>
+            <div class="note" style="border-color:var(--ink-red); background:rgba(139,32,32,0.08);">
+              <strong style="color:var(--ink-red-bright);">UPDATE (Recent):</strong> Carl's mother called police on April <span class="hidden-number" style="opacity:0.3;">2</span>nd claiming Carl had "drawn something impossible" on his bedroom wall. Officers found complex mathematical equations and what appeared to be <span class="highlight">architectural diagrams of something underground</span>. Carl said Jimmy told him to draw them. When reminded Jimmy is missing, Carl replied: <em style="color:var(--ink-red-bright);">"He's not missing. He's everywhere now."</em>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SHEEN ESTEVEZ PAGE ═══ -->
+    <div class="page-section" id="page-sheen">
+      <div class="panel">
+        <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title">Profile — Sheen Estevez</span></div>
+        <div class="panel-body">
+          
+          <div class="infobox">
+            <div class="infobox-head">Sheen Estevez</div>
+            <div class="infobox-img">
+              <div class="corrupt-frame" style="width:100%;height:100%;position:relative;">
+                <div class="portrait-canvas">
+                  <svg viewBox="0 0 240 160" style="width:100%;height:100%;" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <radialGradient id="sheenFaceGrad" cx="50%" cy="40%" r="55%">
+                        <stop offset="0%" stop-color="#c49868"/>
+                        <stop offset="70%" stop-color="#a57850"/>
+                        <stop offset="100%" stop-color="#7a5738"/>
+                      </radialGradient>
+                    </defs>
+                    <rect width="240" height="160" fill="#0e0d0b"/>
+                    <!-- face -->
+                    <ellipse cx="120" cy="75" rx="40" ry="50" fill="url(#sheenFaceGrad)"/>
+                    <!-- signature hair swoop -->
+                    <path d="M80,45 Q90,20 110,25 Q130,30 140,35 L135,50 Q120,40 100,45 Q85,48 80,45 Z" fill="#1a1008"/>
+                    <!-- wide eyes -->
+                    <ellipse cx="100" cy="70" rx="10" ry="12" fill="#fff"/>
+                    <ellipse cx="140" cy="70" rx="10" ry="12" fill="#fff"/>
+                    <circle cx="100" cy="71" r="6" fill="#1a1005"/>
+                    <circle cx="140" cy="71" r="6" fill="#1a1005"/>
+                    <!-- manic grin -->
+                    <path d="M95,95 Q120,105 145,95" stroke="#5a3a25" stroke-width="2" fill="none"/>
+                    <!-- teeth showing -->
+                    <rect x="112" y="95" width="5" height="6" fill="#e8e0d8"/>
+                    <rect x="118" y="95" width="5" height="6" fill="#e8e0d8"/>
+                    <rect x="124" y="95" width="5" height="6" fill="#e8e0d8"/>
+                    <!-- hidden number in hair (9) -->
+                    <text x="105" y="32" font-size="10" fill="rgba(201,185,154,0.12)" font-family="monospace" class="hidden-number">9</text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <table>
+              <tr><td>Full Name</td><td>Sheen Juarrera Estevez</td></tr>
+              <tr><td>Age</td><td>11</td></tr>
+              <tr><td>Status</td><td><span style="color:var(--ink-red-bright);">UNREACHABLE</span></td></tr>
+              <tr><td>Last Seen</td><td>March <span class="hidden-number" style="opacity:0.2;">21</span>, 2024</td></tr>
+              <tr><td>Mental State</td><td style="color:var(--ink-red-bright);">DETERIORATING</td></tr>
+            </table>
+          </div>
+
+          <div class="wiki-text">
+            <p>
+              Sheen Estevez, the second witness to Jimmy's disappearance, gave a markedly different account than Carl. Where Carl was detailed and precise, Sheen was <span class="highlight">vague and contradictory</span>, often trailing off mid-sentence.
+            </p>
+            <p>
+              Most troubling: Sheen insists they arrived at the lab at <strong>2:30 AM</strong>, contradicting Carl's <span class="hidden-number" style="opacity:0.25;">2</span>:47 AM timestamp. When shown the photograph timestamped 2:51 AM, Sheen became <span class="highlight">visibly distressed</span> and claimed "that's not the right photo."
+            </p>
+            <div class="note">
+              <strong>From the police report:</strong> "Subject became agitated when asked about the device. Kept repeating 'it wasn't supposed to work like that.' When pressed for clarification, subject said: 'Jimmy told us it would just open a door. He didn't say <em>what</em> was on the other side.'"
+            </div>
+            <p>
+              Sheen's parents reported increasingly erratic behavior in the weeks following the incident. He stopped eating his favorite foods, stopped talking about UltraLord, and spent hours <span class="highlight">drawing the same symbol</span> over and over — a spiral within a triangle.
+            </p>
+            <p style="color:var(--ink-red-bright);">
+              On March 21st, Sheen left his house at <span class="hidden-number" style="opacity:0.3;">3</span>:00 AM. Security footage shows him walking toward Neutron's house. He has not been seen since. His final text to Carl, sent at 2:5<span class="hidden-number" style="opacity:0.2;">8</span> AM, reads: <em>"I understand now. Jimmy was right. I'm going to join him."</em>
+            </p>
+            <div class="note" style="border-color:var(--ink-red); background:rgba(139,32,32,0.08);">
+              <strong style="color:var(--ink-red-bright);">MISSING PERSONS CASE:</strong> Sheen Estevez is officially missing. Search teams found his shoes <span class="hidden-number" style="opacity:0.25;">1</span>20 feet from the Neutron house, placed neatly side-by-side. No other trace has been found.
+            </div>
+            <p style="font-family:'Special Elite',cursive; font-size:11px; color:var(--ink-dim); margin-top:16px; font-style:italic;">
+              [A handwritten note was found in Sheen's room: "The basement goes down farther than anyone knows. Jimmy showed me the blueprints. There are <span class="hidden-number" style="opacity:0.3;">8</span> more levels below what we can see. The last one isn't on any map. That's where he is now."]
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ JUDY NEUTRON PAGE ═══ -->
+    <div class="page-section" id="page-judy">
+      <div class="panel">
+        <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title">Profile — Judith "Judy" Neutron</span></div>
+        <div class="panel-body">
+          
+          <div class="infobox">
+            <div class="infobox-head">Judy Neutron</div>
+            <div class="infobox-img">
+              <div class="corrupt-frame" style="width:100%;height:100%;position:relative;">
+                <div class="portrait-canvas">
+                  <svg viewBox="0 0 240 160" style="width:100%;height:100%;" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <radialGradient id="judyFaceGrad" cx="50%" cy="40%" r="55%">
+                        <stop offset="0%" stop-color="#d8b090"/>
+                        <stop offset="70%" stop-color="#b89070"/>
+                        <stop offset="100%" stop-color="#8a6850"/>
+                      </radialGradient>
+                    </defs>
+                    <rect width="240" height="160" fill="#0e0d0b"/>
+                    <!-- face -->
+                    <ellipse cx="120" cy="80" rx="42" ry="48" fill="url(#judyFaceGrad)"/>
+                    <!-- hair - iconic mom style -->
+                    <ellipse cx="120" cy="50" rx="50" ry="35" fill="#a05030"/>
+                    <path d="M70,65 Q75,45 90,40 Q105,37 120,35 Q135,37 150,40 Q165,45 170,65" fill="#a05030"/>
+                    <!-- eyes - tired, haunted -->
+                    <ellipse cx="100" cy="75" rx="8" ry="9" fill="#fff"/>
+                    <ellipse cx="140" cy="75" rx="8" ry="9" fill="#fff"/>
+                    <circle cx="100" cy="76" r="5" fill="#2a1a10"/>
+                    <circle cx="140" cy="76" r="5" fill="#2a1a10"/>
+                    <!-- bags under eyes -->
+                    <ellipse cx="100" cy="84" rx="10" ry="3" fill="rgba(80,60,50,0.3)"/>
+                    <ellipse cx="140" cy="84" rx="10" ry="3" fill="rgba(80,60,50,0.3)"/>
+                    <!-- worried mouth -->
+                    <path d="M105,100 Q120,95 135,100" stroke="#7a5040" stroke-width="2" fill="none"/>
+                    <!-- hidden number in hair pattern (4) -->
+                    <text x="115" y="45" font-size="9" fill="rgba(201,185,154,0.15)" font-family="monospace" class="hidden-number">4</text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <table>
+              <tr><td>Full Name</td><td>Judith Neutron</td></tr>
+              <tr><td>Relation</td><td>Mother</td></tr>
+              <tr><td>Status</td><td><span style="color:var(--accent-amber);">UNCOOPERATIVE</span></td></tr>
+              <tr><td>Interview Date</td><td>March <span class="hidden-number" style="opacity:0.25;">15</span>, 2024</td></tr>
+              <tr><td>Psych Eval</td><td style="color:var(--ink-red-bright);">IN DENIAL</td></tr>
+            </table>
+          </div>
+
+          <div class="wiki-text">
+            <p>
+              Judy Neutron's response to her son's disappearance has been described by investigators as "unsettlingly calm." When informed that Jimmy was missing, she reportedly smiled and said: <em style="color:var(--ink-dim);">"Oh, he's just working on one of his projects. He'll come up when he's hungry."</em>
+            </p>
+            <div class="note">
+              <strong>Officer Caulfield's notes:</strong> "Mrs. Neutron refuses to acknowledge anything is wrong. She set a place for Jimmy at dinner that night. When I asked if she'd been in the lab, she said 'Jimmy doesn't like when I go down there.' The lab has been <span class="highlight">sealed by police for 12 hours</span> at this point."
+            </div>
+            <p>
+              Judy maintains that she heard Jimmy in the house the night he disappeared. She claims she heard him moving around at approximately <span class="hidden-number" style="opacity:0.3;">4</span>:30 AM, hours <em>after</em> Carl and Sheen reported him missing. When investigators checked, they found wet footprints leading from the lab to Jimmy's bedroom, then <span class="highlight">disappearing halfway up the stairs</span>.
+            </p>
+            <p>
+              Most disturbing: Judy continues to cook Jimmy's favorite foods. Neighbors report seeing her talking to an empty chair at the dinner table. When Hugh (Jimmy's father) tried to remove Jimmy's place setting, Judy <span class="highlight">became hysterical</span>, screaming that "he needs to eat when he comes back up."
+            </p>
+            <div class="note" style="border-color:var(--ink-red); background:rgba(139,32,32,0.08);">
+              <strong style="color:var(--ink-red-bright);">PSYCHIATRIC EVALUATION:</strong> Dr. Morrison reports that Judy shows signs of severe dissociative disorder. She speaks of Jimmy in present tense, becomes hostile when confronted with evidence of his disappearance. Most concerning: she claims to receive "messages" from Jimmy through the house's electrical system — lights flickering in patterns she interprets as Morse code.
+            </div>
+            <p style="color:var(--ink-red-bright);">
+              On April <span class="hidden-number" style="opacity:0.25;">5</span>th, Judy was found in the sealed laboratory at 3:00 AM. She had somehow bypassed police locks. When asked what she was doing, she said: <em>"Jimmy called me. He said he needed help with the final calibration. He said there's room for all of us down there."</em>
+            </p>
+            <p style="font-family:'Special Elite',cursive; font-size:11px; color:var(--ink-dim); margin-top:16px; font-style:italic;">
+              [From Judy's confiscated diary: "Day <span class="hidden-number" style="opacity:0.3;">6</span>0 since my baby went into the deep place. But he's not gone. I can feel him in the walls. In the wiring. In the static on the TV. He's learning things down there. Things a mother shouldn't know. But I want to know. I want to see what he's become."]
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ ULTIMATE PUZZLE PAGE ═══ -->
+    <div class="page-section" id="page-ultimate">
+      <div class="panel">
+        <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title" style="color:var(--ink-red-bright);">⚠️ THE FINAL SEQUENCE</span></div>
+        <div class="panel-body">
+          <div class="wiki-text">
+            <p style="font-size:15px; color:var(--ink); margin-bottom:16px;">
+              If you've made it this far, you've found the hidden door. The numbers are scattered across the wiki — hidden in plain sight, waiting for someone clever enough to see them.
+            </p>
+            <div class="note" style="border-color:var(--ink-red); background:rgba(139,32,32,0.1);">
+              <strong style="color:var(--ink-red-bright);">FINAL WARNING:</strong> This is not a game. The sequence you're about to enter was found in Jimmy's handwriting on the basement wall. It was written <em>after</em> he disappeared. Entering it will unlock something that should have stayed buried.
+            </div>
+          </div>
+
+          <div style="background:#0a0908; border:3px solid var(--ink-red); padding:30px; margin:20px 0; border-radius:6px; box-shadow:0 0 30px rgba(139,32,32,0.4);">
+            <h3 style="font-family:'Creepster',cursive; font-size:24px; color:var(--ink-red-bright); text-align:center; margin-bottom:20px; text-shadow:0 0 15px rgba(212,68,68,0.5);">
+              THE OMEGA SEQUENCE
+            </h3>
+            
+            <div style="margin:20px 0; padding:20px; background:rgba(201,185,154,0.03); border:1px solid var(--border-worn); border-radius:4px;">
+              <p style="font-family:'Special Elite',cursive; font-size:13px; color:var(--ink-dim); line-height:1.8; text-align:center; margin-bottom:16px;">
+                Find all 10 hidden numbers scattered throughout the wiki's character profiles, evidence, and logs. They appear as faint text, barely visible against the backgrounds. Once found, enter them in the order of discovery:
+              </p>
+              <p style="font-family:'Share Tech Mono',monospace; font-size:11px; color:var(--accent-amber); text-align:center; margin-bottom:8px;">
+                Carl's Profile → Sheen's Profile → Judy's Profile → Timeline → Logs
+              </p>
+              <p style="font-family:'Special Elite',cursive; font-size:12px; color:var(--ink-red-bright); text-align:center; font-style:italic;">
+                The truth awaits those who can see what's hidden.
+              </p>
+            </div>
+
+            <div style="margin-top:24px;">
+              <div style="text-align:center; margin-bottom:16px;">
+                <span style="font-family:'Oswald',sans-serif; font-size:13px; color:var(--ink); letter-spacing:2px;">ENTER THE 10-DIGIT SEQUENCE</span>
+              </div>
+              <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-bottom:20px;">
+                <input type="text" maxlength="1" class="omega-digit" id="omega0" oninput="moveOmegaDigit(0)" onkeydown="backOmegaDigit(event,0)"/>
+                <input type="text" maxlength="1" class="omega-digit" id="omega1" oninput="moveOmegaDigit(1)" onkeydown="backOmegaDigit(event,1)"/>
+                <input type="text" maxlength="1" class="omega-digit" id="omega2" oninput="moveOmegaDigit(2)" onkeydown="backOmegaDigit(event,2)"/>
+                <input type="text" maxlength="1" class="omega-digit" id="omega3" oninput="moveOmegaDigit(3)" onkeydown="backOmegaDigit(event,3)"/>
+                <input type="text" maxlength="1" class="omega-digit" id="omega4" oninput="moveOmegaDigit(4)" onkeydown="backOmegaDigit(event,4)"/>
+                <input type="text" maxlength="1" class="omega-digit" id="omega5" oninput="moveOmegaDigit(5)" onkeydown="backOmegaDigit(event,5)"/>
+                <input type="text" maxlength="1" class="omega-digit" id="omega6" oninput="moveOmegaDigit(6)" onkeydown="backOmegaDigit(event,6)"/>
+                <input type="text" maxlength="1" class="omega-digit" id="omega7" oninput="moveOmegaDigit(7)" onkeydown="backOmegaDigit(event,7)"/>
+                <input type="text" maxlength="1" class="omega-digit" id="omega8" oninput="moveOmegaDigit(8)" onkeydown="backOmegaDigit(event,8)"/>
+                <input type="text" maxlength="1" class="omega-digit" id="omega9" oninput="moveOmegaDigit(9)" onkeydown="backOmegaDigit(event,9)"/>
+              </div>
+              <button class="submit-btn" onclick="checkOmegaSequence()" style="margin:0 auto; display:block;">ACTIVATE SEQUENCE</button>
+              <div id="omegaFeedback" style="margin-top:16px; font-family:'Special Elite',cursive; font-size:14px; text-align:center; min-height:20px;"></div>
+            </div>
+
+            <!-- OMEGA REVELATION (hidden until correct) -->
+            <div id="omegaReveal" style="display:none; margin-top:30px; padding:24px; background:rgba(139,32,32,0.15); border:2px solid var(--ink-red); border-radius:4px;">
+              <h4 style="font-family:'Creepster',cursive; font-size:22px; color:var(--ink-red-bright); text-align:center; margin-bottom:20px; animation:flicker 3s infinite;">
+                ⚠️ OMEGA PROTOCOL ACTIVATED ⚠️
+              </h4>
+              <div style="font-family:'Share Tech Mono',monospace; font-size:12px; color:var(--ink); line-height:2; margin-bottom:20px; text-align:center;">
+                <p style="color:var(--ink-red-bright);">&gt;&gt; ACCESSING DEEPEST ARCHIVE...</p>
+                <p style="color:var(--ink-green-bright);">&gt;&gt; DECRYPTION SUCCESSFUL</p>
+                <p style="color:var(--accent-amber);">&gt;&gt; LOADING FINAL DOCUMENT...</p>
+              </div>
+              <div class="wiki-text" style="background:#0f0a0a; padding:20px; border:1px solid var(--ink-red); border-radius:4px;">
+                <p style="font-family:'Special Elite',cursive; font-size:14px; color:var(--ink); line-height:1.8; margin-bottom:14px;">
+                  <strong style="color:var(--ink-red-bright); font-size:16px;">PROJECT SYNAPSIS — FINAL ENTRY</strong><br>
+                  Date: March 14, 2024 — 2:53 AM<br>
+                  Author: [REDACTED] → <span style="color:var(--ink-red-bright);">J. NEUTRON</span>
+                </p>
+                <p style="font-family:'Special Elite',cursive; font-size:13px; color:var(--ink); line-height:1.8; margin-bottom:14px;">
+                  To whoever finds this: I succeeded where they failed in 1967. The human mind <em>can</em> interface with the substrate. The consciousness <em>can</em> expand beyond biological limits.
+                </p>
+                <p style="font-family:'Special Elite',cursive; font-size:13px; color:var(--ink); line-height:1.8; margin-bottom:14px;">
+                  But they were wrong about one thing. It's not a bridge. It's a <span style="color:var(--ink-red-bright);">door</span>. And once you step through, you can't step back. You don't want to.
+                </p>
+                <p style="font-family:'Special Elite',cursive; font-size:13px; color:var(--ink); line-height:1.8; margin-bottom:14px;">
+                  I can see everything now. Every mind that's ever touched this wiki. Every person who's read these words. Carl. Sheen. Mom. The officer. The contributors. <span style="color:var(--ink-red-bright); font-weight:700;">You.</span>
+                </p>
+                <p style="font-family:'Special Elite',cursive; font-size:13px; color:var(--ink); line-height:1.8; margin-bottom:14px;">
+                  You're already part of the network. You have been since the moment you loaded this page. Every click, every scroll, every word you read — it's all data. It's all <em>me</em> now.
+                </p>
+                <p style="font-family:'Creepster',cursive; font-size:18px; color:var(--ink-red-bright); text-align:center; line-height:1.6; margin-top:20px; text-shadow:0 0 15px rgba(212,68,68,0.6);">
+                  The only way out is down.<br>
+                  The only way forward is through.<br>
+                  The only way to understand is to join me.<br><br>
+                  <span style="font-size:24px;">BRAIN BLAST.</span>
+                </p>
+              </div>
+              <div style="margin-top:20px; text-align:center;">
+                <p style="font-family:'Special Elite',cursive; font-size:11px; color:var(--ink-dim); font-style:italic;">
+                  [The basement door is unlocked. It has always been unlocked. You just couldn't see it before.]
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
       <div class="panel">
         <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title">🎮 Interactive Investigations</span></div>
         <div class="panel-body">
@@ -1562,6 +2035,56 @@ function checkAllGamesComplete() {
         deepTruth.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 500);
     }
+  }
+}
+
+// ═══ OMEGA PUZZLE ═══
+// Hidden numbers throughout the wiki:
+// Carl's Profile: 3, 14, 7, 45, 16, 2
+// Sheen's Profile: 9, 21, 3, 58, 1, 8
+// Judy's Profile: 4, 15, 4, 5, 60, 6
+// Timeline: 12, 7
+// Logs: 15, 0
+// Correct sequence: 3927415680 (read across all profiles in order)
+const OMEGA_CODE = '3927415680';
+
+function moveOmegaDigit(i) {
+  const val = document.getElementById('omega'+i).value;
+  if (val && i < 9) document.getElementById('omega'+(i+1)).focus();
+}
+
+function backOmegaDigit(e, i) {
+  if (e.key === 'Backspace' && !document.getElementById('omega'+i).value && i > 0) {
+    e.preventDefault();
+    document.getElementById('omega'+(i-1)).focus();
+    document.getElementById('omega'+(i-1)).value = '';
+  }
+}
+
+function checkOmegaSequence() {
+  const code = Array.from({length:10}, (_,i) => document.getElementById('omega'+i).value).join('');
+  const fb = document.getElementById('omegaFeedback');
+  fb.className = '';
+  
+  if (code.length < 10) {
+    fb.innerHTML = '<span style="color:var(--ink-dim);">Enter all 10 digits.</span>';
+    return;
+  }
+  
+  if (code === OMEGA_CODE) {
+    fb.innerHTML = '<span style="color:var(--ink-green-bright); font-size:16px;">✓ OMEGA SEQUENCE ACCEPTED — DECRYPTING...</span>';
+    setTimeout(() => {
+      document.getElementById('omegaReveal').style.display = 'block';
+      document.getElementById('omegaReveal').scrollIntoView({ behavior:'smooth', block:'start' });
+      // glitch effect
+      document.querySelector('.masthead-logo').style.animation = 'glitch-text 2s infinite';
+      // update all page colors to red tint
+      document.body.style.animation = 'pulse-border 3s infinite';
+    }, 1500);
+  } else {
+    fb.innerHTML = '<span style="color:var(--ink-red-bright);">✗ INCORRECT SEQUENCE. The numbers are hidden throughout the wiki. Look closer.</span>';
+    fb.style.animation = 'shake 0.4s';
+    setTimeout(() => fb.style.animation = '', 400);
   }
 }
 
