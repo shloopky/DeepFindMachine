@@ -1,43 +1,1413 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RETROVILLE ARCHIVE - 2002</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>JimmyFiles — Something is Wrong</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Creepster&family=Share+Tech+Mono&family=Oswald:wght@700&display=swap');
+
+:root {
+  --bg-deep: #0a0a0a;
+  --bg-panel: #111210;
+  --bg-paper: #1a1916;
+  --ink: #c9b99a;
+  --ink-dim: #6b6358;
+  --ink-red: #8b2020;
+  --ink-red-bright: #d44;
+  --ink-green: #3a6b3a;
+  --ink-green-bright: #5c5;
+  --shadow-color: rgba(0,0,0,0.7);
+  --border-worn: #2a2520;
+  --accent-amber: #c49a3a;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html, body {
+  width:100%; min-height:100%;
+  background: var(--bg-deep);
+  color: var(--ink);
+  font-family: 'Share Tech Mono', monospace;
+  overflow-x: hidden;
+  cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><circle cx="12" cy="12" r="4" fill="%23c9b99a"/><circle cx="12" cy="12" r="2" fill="%23111"/></svg>') 12 12, crosshair;
+}
+
+/* ─── SCANLINE OVERLAY ─── */
+body::after {
+  content:'';
+  position:fixed; inset:0; z-index:9999;
+  pointer-events:none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.15) 2px,
+    rgba(0,0,0,0.15) 4px
+  );
+}
+
+/* ─── NOISE GRAIN ─── */
+body::before {
+  content:'';
+  position:fixed; inset:0; z-index:9998;
+  pointer-events:none;
+  opacity:0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size:256px 256px;
+}
+
+/* ─── VIGNETTE ─── */
+.vignette {
+  position:fixed; inset:0; z-index:9997;
+  pointer-events:none;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.75) 100%);
+}
+
+/* ─── HEADER / MASTHEAD ─── */
+.masthead {
+  position:relative;
+  text-align:center;
+  padding: 48px 20px 30px;
+  border-bottom: 3px solid var(--border-worn);
+  background:
+    linear-gradient(180deg, #0d0c0a 0%, #151410 60%, var(--bg-panel) 100%);
+  box-shadow: 0 8px 40px var(--shadow-color);
+  overflow:hidden;
+}
+.masthead::before {
+  content:'';
+  position:absolute; inset:0;
+  background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  opacity:0.5;
+}
+.masthead-logo {
+  position:relative; z-index:2;
+  font-family:'Creepster',cursive;
+  font-size: clamp(42px, 8vw, 88px);
+  letter-spacing: -2px;
+  color: var(--ink);
+  text-shadow:
+    0 0 8px rgba(201,185,154,0.3),
+    3px 3px 0 #000,
+    4px 4px 0 #000,
+    0 0 60px rgba(139,32,32,0.25);
+  animation: flicker 4s infinite;
+}
+.masthead-logo span { color: var(--ink-red-bright); }
+.masthead-sub {
+  position:relative; z-index:2;
+  font-family:'Special Elite',cursive;
+  font-size:15px;
+  color: var(--ink-dim);
+  margin-top:8px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+}
+.masthead-warning {
+  position:relative; z-index:2;
+  margin-top:18px;
+  display:inline-block;
+  background: #1f1a15;
+  border: 2px solid var(--ink-red);
+  padding: 8px 22px;
+  font-size:13px;
+  color: var(--ink-red-bright);
+  font-family:'Special Elite',cursive;
+  letter-spacing:1px;
+  box-shadow: 0 0 18px rgba(139,32,32,0.4), inset 0 0 10px rgba(139,32,32,0.08);
+  animation: pulse-border 2.5s ease-in-out infinite;
+}
+
+/* ─── NAV ─── */
+nav {
+  background: #0f0e0c;
+  border-bottom: 2px solid var(--border-worn);
+  padding: 0;
+  text-align:center;
+  box-shadow: 0 4px 20px var(--shadow-color);
+  position:sticky; top:0; z-index:100;
+}
+nav a {
+  display:inline-block;
+  color: var(--ink-dim);
+  text-decoration:none;
+  padding: 14px 22px;
+  font-family:'Special Elite',cursive;
+  font-size:14px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  border-right: 1px solid var(--border-worn);
+  transition: color .2s, background .2s, text-shadow .2s;
+}
+nav a:last-child { border-right:none; }
+nav a:hover {
+  color: var(--ink);
+  background: rgba(201,185,154,0.04);
+  text-shadow: 0 0 10px rgba(201,185,154,0.4);
+}
+nav a.active {
+  color: var(--ink-red-bright);
+  text-shadow: 0 0 12px rgba(212,68,68,0.5);
+}
+
+/* ─── LAYOUT ─── */
+.site-body {
+  display:flex;
+  max-width:1400px;
+  margin: 0 auto;
+  padding: 30px 18px;
+  gap: 28px;
+}
+.sidebar {
+  width:260px;
+  flex-shrink:0;
+}
+.main-content { flex:1; min-width:0; }
+
+/* ─── PANELS (bulky card style) ─── */
+.panel {
+  background: var(--bg-panel);
+  border: 2px solid var(--border-worn);
+  border-radius: 4px;
+  margin-bottom:22px;
+  box-shadow:
+    0 6px 24px var(--shadow-color),
+    inset 0 1px 0 rgba(201,185,154,0.06);
+  overflow:hidden;
+  position:relative;
+}
+.panel-header {
+  background: linear-gradient(135deg, #1c1815 0%, #141210 100%);
+  border-bottom: 2px solid var(--border-worn);
+  padding: 12px 18px;
+  display:flex; align-items:center; gap:10px;
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+.panel-header .dots {
+  display:flex; gap:6px;
+}
+.panel-header .dots span {
+  width:12px; height:12px;
+  border-radius:50%;
+  background:#2a2520;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.6);
+}
+.panel-header .dots span:nth-child(1) { background:#5c2020; box-shadow: 0 0 6px #5c2020; }
+.panel-header .dots span:nth-child(2) { background:#4a4020; box-shadow: 0 0 6px #4a4020; }
+.panel-header .dots span:nth-child(3) { background:#204a20; box-shadow: 0 0 6px #204a20; }
+.panel-title {
+  font-family:'Oswald',sans-serif;
+  font-size:14px;
+  color:var(--ink);
+  text-transform:uppercase;
+  letter-spacing:2px;
+}
+.panel-body { padding:18px; }
+
+/* ─── SIDEBAR LINKS ─── */
+.sidebar-link {
+  display:block;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--border-worn);
+  color: var(--ink-dim);
+  text-decoration:none;
+  font-size:13px;
+  font-family:'Special Elite',cursive;
+  transition: color .2s, background .2s, padding-left .2s;
+  position:relative;
+}
+.sidebar-link:hover {
+  color: var(--ink);
+  background: rgba(201,185,154,0.03);
+  padding-left:20px;
+}
+.sidebar-link.redlink { color: var(--ink-red); }
+.sidebar-link.redlink:hover { color: var(--ink-red-bright); text-shadow: 0 0 8px rgba(212,68,68,0.4); }
+
+/* ─── WIKI ARTICLE TEXT ─── */
+.wiki-text {
+  font-family:'Special Elite',cursive;
+  font-size:14px;
+  line-height:1.75;
+  color: var(--ink);
+}
+.wiki-text p { margin-bottom:14px; }
+.wiki-text .highlight {
+  color: var(--ink-red-bright);
+  font-weight:700;
+  text-shadow: 0 0 6px rgba(212,68,68,0.35);
+}
+.wiki-text .note {
+  background: rgba(139,32,32,0.08);
+  border-left: 3px solid var(--ink-red);
+  padding: 10px 14px;
+  margin: 16px 0;
+  font-size:13px;
+  color: var(--ink-dim);
+}
+.wiki-text .note strong { color:var(--ink-red-bright); }
+.wiki-text .evidence-tag {
+  display:inline-block;
+  background: rgba(58,107,58,0.15);
+  border: 1px solid var(--ink-green);
+  color: var(--ink-green-bright);
+  font-size:11px;
+  padding: 2px 8px;
+  border-radius:2px;
+  margin-left:4px;
+  letter-spacing:1px;
+  vertical-align:middle;
+}
+
+/* ─── INFOBOX ─── */
+.infobox {
+  float:right;
+  width:240px;
+  background:#131210;
+  border: 2px solid var(--border-worn);
+  margin: 0 0 18px 22px;
+  box-shadow: 0 8px 30px var(--shadow-color), 0 0 0 1px rgba(201,185,154,0.05);
+  font-size:13px;
+}
+.infobox-head {
+  background: linear-gradient(135deg, #1f1a14, #161412);
+  text-align:center;
+  padding: 14px 10px;
+  font-family:'Oswald',sans-serif;
+  font-size:16px;
+  color:var(--ink);
+  letter-spacing:2px;
+  text-transform:uppercase;
+  border-bottom: 2px solid var(--border-worn);
+  text-shadow: 0 0 10px rgba(201,185,154,0.2);
+}
+.infobox-img {
+  width:100%;
+  height:160px;
+  position:relative;
+  overflow:hidden;
+  background:#0e0d0b;
+  border-bottom: 2px solid var(--border-worn);
+}
+.infobox-img .placeholder-img {
+  width:100%; height:100%;
+  display:flex; align-items:center; justify-content:center;
+}
+.infobox table { width:100%; border-collapse:collapse; }
+.infobox td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--border-worn);
+  vertical-align:top;
+}
+.infobox td:first-child {
+  color:var(--ink-dim);
+  font-weight:700;
+  width:45%;
+  font-family:'Oswald',sans-serif;
+  text-transform:uppercase;
+  font-size:11px;
+  letter-spacing:1px;
+}
+
+/* ─── REALISTIC SVG PORTRAITS ─── */
+.portrait-jimmy {
+  width:100%; height:100%;
+  position:relative;
+}
+.portrait-jimmy svg { width:100%; height:100%; }
+
+/* ─── DRAGGABLE EVIDENCE SYSTEM ─── */
+#evidence-board {
+  position:relative;
+  background: #0f0e0c;
+  border: 2px dashed var(--border-worn);
+  border-radius:6px;
+  min-height:420px;
+  padding:16px;
+  overflow:hidden;
+}
+#evidence-board::before {
+  content:'DRAG PIECES TO CONNECT THE DOTS';
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  font-family:'Creepster',cursive;
+  font-size:22px;
+  color:rgba(201,185,154,0.06);
+  white-space:nowrap;
+  pointer-events:none;
+  letter-spacing:4px;
+}
+.evidence-piece {
+  position:absolute;
+  background: var(--bg-paper);
+  border: 2px solid var(--border-worn);
+  border-radius:3px;
+  padding:12px 14px;
+  box-shadow:
+    0 4px 16px var(--shadow-color),
+    0 1px 3px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(201,185,154,0.07);
+  cursor:grab;
+  user-select:none;
+  -webkit-user-select:none;
+  font-family:'Special Elite',cursive;
+  font-size:12px;
+  color:var(--ink);
+  max-width:170px;
+  z-index:2;
+  transition: box-shadow .15s;
+  /* tape strip */
+}
+.evidence-piece:active { cursor:grabbing; }
+.evidence-piece:hover {
+  box-shadow:
+    0 6px 28px rgba(0,0,0,0.8),
+    0 0 12px rgba(201,185,154,0.08),
+    inset 0 1px 0 rgba(201,185,154,0.1);
+  z-index:50 !important;
+}
+.evidence-piece .tape {
+  position:absolute;
+  top:-8px; left:50%;
+  transform:translateX(-50%);
+  width:60px; height:18px;
+  background: rgba(180,165,130,0.45);
+  border-radius:2px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+.evidence-piece .tape-left {
+  top:-6px; left:-10px; transform:rotate(-12deg);
+  width:50px; height:16px;
+}
+.evidence-piece .tape-right {
+  top:-6px; right:-10px; left:auto; transform:rotate(14deg) translateX(0);
+  width:50px; height:16px;
+}
+.evidence-piece .piece-label {
+  font-family:'Oswald',sans-serif;
+  font-size:10px;
+  color: var(--ink-dim);
+  text-transform:uppercase;
+  letter-spacing:2px;
+  margin-bottom:5px;
+  border-bottom:1px solid var(--border-worn);
+  padding-bottom:4px;
+}
+.evidence-piece .piece-img {
+  width:100%;
+  height:70px;
+  background:#0e0d0b;
+  border:1px solid var(--border-worn);
+  margin-bottom:6px;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+.evidence-piece.red-stamp { border-color: var(--ink-red); }
+.evidence-piece.red-stamp .piece-label { color:var(--ink-red-bright); border-color:var(--ink-red); }
+
+/* ─── STRING CONNECTIONS (SVG overlay) ─── */
+#string-layer {
+  position:absolute; inset:0;
+  pointer-events:none; z-index:1;
+  width:100%; height:100%;
+}
+
+/* ─── PUZZLE LOCK ─── */
+.puzzle-lock {
+  background:#121110;
+  border:2px solid var(--border-worn);
+  border-radius:6px;
+  padding:22px;
+  margin-top:20px;
+  box-shadow: 0 6px 24px var(--shadow-color);
+  text-align:center;
+}
+.puzzle-lock h3 {
+  font-family:'Creepster',cursive;
+  font-size:20px;
+  color: var(--ink-red-bright);
+  margin-bottom:10px;
+  text-shadow: 0 0 10px rgba(212,68,68,0.3);
+}
+.puzzle-lock p {
+  font-family:'Special Elite',cursive;
+  font-size:13px;
+  color:var(--ink-dim);
+  margin-bottom:16px;
+}
+.code-input-row { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
+.code-digit {
+  width:46px; height:62px;
+  background:#0f0e0c;
+  border:2px solid var(--border-worn);
+  border-radius:4px;
+  text-align:center;
+  font-family:'Creepster',cursive;
+  font-size:28px;
+  color:var(--ink);
+  caret-color: var(--ink-red-bright);
+  box-shadow: inset 0 3px 8px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.4);
+  outline:none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.code-digit:focus {
+  border-color: var(--accent-amber);
+  box-shadow: inset 0 3px 8px rgba(0,0,0,0.6), 0 0 10px rgba(196,154,58,0.25);
+}
+.submit-btn {
+  display:block; margin:18px auto 0;
+  background: linear-gradient(135deg, #2a1e1e, #1a1212);
+  border: 2px solid var(--ink-red);
+  color: var(--ink-red-bright);
+  font-family:'Oswald',sans-serif;
+  font-size:15px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  padding: 10px 36px;
+  border-radius:4px;
+  cursor:pointer;
+  box-shadow: 0 4px 14px rgba(139,32,32,0.3);
+  transition: box-shadow .2s, background .2s;
+}
+.submit-btn:hover {
+  background: linear-gradient(135deg, #3a2525, #241818);
+  box-shadow: 0 4px 22px rgba(139,32,32,0.5);
+}
+.puzzle-feedback {
+  margin-top:12px;
+  font-family:'Special Elite',cursive;
+  font-size:14px;
+  min-height:20px;
+  text-align:center;
+}
+.puzzle-feedback.wrong { color:var(--ink-red-bright); animation:shake .4s; }
+.puzzle-feedback.right { color:var(--ink-green-bright); }
+
+/* ─── TIMELINE ─── */
+.timeline { position:relative; padding-left:30px; }
+.timeline::before {
+  content:'';
+  position:absolute; left:12px; top:0; bottom:0;
+  width:2px;
+  background: linear-gradient(180deg, var(--ink-red), var(--border-worn), var(--ink-red));
+}
+.timeline-item { position:relative; margin-bottom:22px; }
+.timeline-item::before {
+  content:'';
+  position:absolute;
+  left:-24px; top:8px;
+  width:14px; height:14px;
+  border-radius:50%;
+  background:#1a1916;
+  border:2px solid var(--ink-red);
+  box-shadow: 0 0 8px rgba(139,32,32,0.4);
+}
+.timeline-date {
+  font-family:'Oswald',sans-serif;
+  font-size:11px;
+  color:var(--ink-red-bright);
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:4px;
+}
+.timeline-desc {
+  font-family:'Special Elite',cursive;
+  font-size:13px;
+  color:var(--ink-dim);
+  line-height:1.6;
+}
+
+/* ─── GLITCH FLICKER ─── */
+@keyframes flicker {
+  0%,100%{ opacity:1; }
+  92%{ opacity:1; }
+  93%{ opacity:.7; }
+  94%{ opacity:1; }
+  96%{ opacity:.85; }
+  97%{ opacity:1; }
+}
+@keyframes pulse-border {
+  0%,100%{ box-shadow: 0 0 18px rgba(139,32,32,0.4), inset 0 0 10px rgba(139,32,32,0.08); }
+  50%{ box-shadow: 0 0 28px rgba(139,32,32,0.6), inset 0 0 16px rgba(139,32,32,0.12); }
+}
+@keyframes shake {
+  0%,100%{ transform:translateX(0); }
+  20%{ transform:translateX(-8px); }
+  40%{ transform:translateX(8px); }
+  60%{ transform:translateX(-5px); }
+  80%{ transform:translateX(5px); }
+}
+@keyframes glitch-text {
+  0%,100%{ text-shadow: 0 0 8px rgba(201,185,154,0.3), 3px 3px 0 #000; }
+  25%{ text-shadow: -2px 0 rgba(212,68,68,0.6), 2px 0 rgba(58,107,58,0.4), 3px 3px 0 #000; }
+  50%{ text-shadow: 0 0 8px rgba(201,185,154,0.3), 3px 3px 0 #000; }
+  75%{ text-shadow: 2px 0 rgba(212,68,68,0.5), -2px 0 rgba(58,107,58,0.3), 3px 3px 0 #000; }
+}
+
+/* ─── STAMP DECORATIONS ─── */
+.stamp {
+  display:inline-block;
+  border: 3px solid;
+  padding: 4px 12px;
+  font-family:'Oswald',sans-serif;
+  font-size:13px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  transform: rotate(-3deg);
+  opacity:0.85;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.stamp-red { border-color:var(--ink-red); color:var(--ink-red-bright); background:rgba(139,32,32,0.08); }
+.stamp-green { border-color:var(--ink-green); color:var(--ink-green-bright); background:rgba(58,107,58,0.08); }
+
+/* ─── FOOTER ─── */
+footer {
+  text-align:center;
+  padding:40px 20px;
+  border-top: 1px solid var(--border-worn);
+  margin-top:30px;
+}
+footer p {
+  font-family:'Special Elite',cursive;
+  font-size:12px;
+  color:var(--ink-dim);
+  line-height:1.8;
+}
+footer .footer-glitch { animation:flicker 6s infinite; }
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:820px){
+  .site-body { flex-direction:column; }
+  .sidebar { width:100%; }
+  .infobox { float:none; width:100%; margin:0 0 18px; }
+}
+
+/* ─── REVEAL ANIMATIONS ─── */
+.reveal { opacity:0; transform:translateY(12px); transition: opacity .6s, transform .6s; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* ─── ACTIVE PAGE SECTIONS ─── */
+.page-section { display:none; }
+.page-section.active { display:block; }
+
+/* ─── CURSOR TRAIL ─── */
+.cursor-dot {
+  position:fixed;
+  width:6px; height:6px;
+  border-radius:50%;
+  background:rgba(212,68,68,0.5);
+  pointer-events:none;
+  z-index:9996;
+  transition: transform .05s;
+  box-shadow: 0 0 6px rgba(212,68,68,0.4);
+}
+
+/* ─── AMBIENT AUDIO TOGGLE ─── */
+.audio-btn {
+  position:fixed;
+  bottom:24px; right:24px;
+  z-index:200;
+  width:48px; height:48px;
+  border-radius:50%;
+  background:#131210;
+  border:2px solid var(--border-worn);
+  color:var(--ink-dim);
+  font-size:20px;
+  cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow: 0 4px 16px var(--shadow-color);
+  transition: border-color .2s, color .2s;
+}
+.audio-btn:hover { border-color:var(--accent-amber); color:var(--ink); }
+
+/* ─── CORRUPTED IMAGE FRAMES ─── */
+.corrupt-frame {
+  position:relative;
+  overflow:hidden;
+  border:2px solid var(--border-worn);
+  background:#0a0908;
+}
+.corrupt-frame::after {
+  content:'';
+  position:absolute; inset:0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0,0,0,0.1) 3px,
+    rgba(0,0,0,0.1) 4px
+  );
+  pointer-events:none;
+}
+.corrupt-frame .glitch-bar {
+  position:absolute;
+  height:3px;
+  background:rgba(212,68,68,0.25);
+  left:0; right:0;
+  animation: glitch-move 3s steps(1) infinite;
+}
+@keyframes glitch-move {
+  0%{ top:10%; }
+  14%{ top:35%; }
+  28%{ top:8%; }
+  42%{ top:60%; }
+  56%{ top:22%; }
+  72%{ top:78%; }
+  86%{ top:45%; }
+  100%{ top:10%; }
+}
+
+/* ─── PROCEDURAL PORTRAITS (CSS art) ─── */
+.portrait-canvas {
+  width:100%; height:100%;
+  position:relative;
+  overflow:hidden;
+}
+
+/* ─── MINI CLASSIFIED STAMP ─── */
+.classified-overlay {
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%) rotate(-8deg);
+  font-family:'Oswald',sans-serif;
+  font-size:36px;
+  color:rgba(139,32,32,0.22);
+  letter-spacing:6px;
+  text-transform:uppercase;
+  white-space:nowrap;
+  pointer-events:none;
+  z-index:3;
+  border:4px solid rgba(139,32,32,0.2);
+  padding:4px 18px;
+}
+
+/* ─── CHAT LOG STYLE ─── */
+.chat-log { margin:10px 0; }
+.chat-msg {
+  font-family:'Share Tech Mono',monospace;
+  font-size:12px;
+  padding:6px 0;
+  border-bottom:1px solid rgba(42,37,32,0.6);
+  color:var(--ink-dim);
+}
+.chat-msg .sender { color:var(--accent-amber); font-weight:700; }
+.chat-msg .sender.red { color:var(--ink-red-bright); }
+.chat-msg .ts { color:rgba(107,99,88,0.6); margin-right:8px; }
+
+/* ─── PROGRESS BAR ─── */
+.progress-track {
+  background:#0a0908;
+  border:1px solid var(--border-worn);
+  height:10px;
+  border-radius:3px;
+  overflow:hidden;
+  margin-top:8px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+}
+.progress-fill {
+  height:100%;
+  background: linear-gradient(90deg, var(--ink-red), var(--ink-red-bright));
+  width:35%;
+  border-radius:3px;
+  box-shadow: 0 0 8px rgba(139,32,32,0.4);
+  transition: width 1s ease;
+}
+
+</style>
 </head>
 <body>
-    <div id="scanline"></div>
-    
-    <header>
-        <h1>Neutron Systems: Internal Server 04</h1>
-        <p>RECOVERED DATA - STATUS: <span class="corrupt">CORRUPTED</span></p>
-    </header>
 
-    <main id="main-content">
-        <div class="character-grid">
-            <div class="card" id="jimmy">
-                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=SUBJECT+A" alt="Jimmy">
-                <p>J. NEUTRON</p>
-            </div>
-            <div class="card" id="carl">
-                <img src="https://via.placeholder.com/150/000000/FFFFFF?text=SUBJECT+B" alt="Carl">
-                <p>C. WHEEZER</p>
-                <div id="secret-trigger"></div>
-            </div>
-        </div>
+<div class="vignette"></div>
 
-        <div id="login-zone">
-            <input type="text" id="passcode" placeholder="ENTER ACCESS CODE...">
-            <button onclick="checkCode()">RUN BRAIN_BLAST.EXE</button>
-        </div>
-    </main>
+<!-- CURSOR TRAIL -->
+<div class="cursor-dot" id="cursorDot"></div>
 
-    <div id="terminal" class="hidden">
-        <p class="typing">FATAL ERROR: NEURAL OVERLOAD...</p>
-        <p id="terminal-output"></p>
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-logo">Jimmy<span>Files</span></div>
+  <div class="masthead-sub">— A collaborative investigation archive —</div>
+  <div class="masthead-warning">⚠ This wiki contains redacted, corrupted, and possibly fabricated documents. Proceed at your own risk.</div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="active" data-page="case">Case File</a>
+  <a href="#" data-page="evidence">Evidence Board</a>
+  <a href="#" data-page="timeline">Timeline</a>
+  <a href="#" data-page="logs">Recovered Logs</a>
+  <a href="#" data-page="puzzle">??? Locked</a>
+</nav>
+
+<!-- MAIN SITE BODY -->
+<div class="site-body">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="panel">
+      <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title">Navigation</span></div>
+      <div class="panel-body" style="padding:0;">
+        <a href="#" class="sidebar-link" data-page="case">📁 Main Case File</a>
+        <a href="#" class="sidebar-link" data-page="evidence">📌 Evidence Board</a>
+        <a href="#" class="sidebar-link" data-page="timeline">📅 Timeline of Events</a>
+        <a href="#" class="sidebar-link" data-page="logs">💬 Recovered Chat Logs</a>
+        <a href="#" class="sidebar-link redlink" data-page="puzzle">🔒 [LOCKED — CODE REQUIRED]</a>
+        <a href="#" class="sidebar-link redlink" style="opacity:0.5; pointer-events:none;">🔒 Subject 7 (???.???)</a>
+        <a href="#" class="sidebar-link redlink" style="opacity:0.4; pointer-events:none;">🔒 The Basement (CORRUPTED)</a>
+      </div>
     </div>
 
-    <script src="script.js"></script>
+    <div class="panel">
+      <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title">Investigation Status</span></div>
+      <div class="panel-body">
+        <p style="font-family:'Special Elite',cursive; font-size:12px; color:var(--ink-dim); margin-bottom:8px;">Evidence recovered: <strong style="color:var(--ink);">7 / 12</strong></p>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <p style="font-family:'Special Elite',cursive; font-size:11px; color:var(--ink-dim); margin-top:10px; line-height:1.6;">Last active contributor: <strong style="color:var(--ink-red-bright);">??? (deleted)</strong></p>
+        <p style="font-family:'Special Elite',cursive; font-size:11px; color:var(--ink-dim); margin-top:4px; line-height:1.6;">Wiki integrity: <span class="stamp stamp-red" style="font-size:9px; padding:1px 6px; transform:none; display:inline-block;">COMPROMISED</span></p>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title">Site Notice</span></div>
+      <div class="panel-body">
+        <p style="font-family:'Special Elite',cursive; font-size:12px; color:var(--ink-dim); line-height:1.7;">
+          Several editors have gone silent. The admin account "NeutronAdmin" was last seen <strong style="color:var(--ink-red-bright);">147 days ago</strong>. All edits after that date were made from <strong style="color:var(--ink-red-bright);">unverified IPs</strong>.<br/><br/>
+          Do <em>not</em> trust the images on the Evidence page without cross-referencing the Logs.
+        </p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- ═══ CASE FILE PAGE ═══ -->
+    <div class="page-section active" id="page-case">
+      <div class="panel">
+        <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title">Main Case File — J. Neutron</span></div>
+        <div class="panel-body">
+          <!-- INFOBOX -->
+          <div class="infobox">
+            <div class="infobox-head">Subject Profile</div>
+            <div class="infobox-img">
+              <div class="corrupt-frame" style="width:100%;height:100%;position:relative;">
+                <div class="glitch-bar"></div>
+                <div class="portrait-canvas">
+                  <svg viewBox="0 0 240 160" style="width:100%;height:100%;" xmlns="http://www.w3.org/2000/svg">
+                    <!-- dark background -->
+                    <defs>
+                      <radialGradient id="faceGrad" cx="50%" cy="40%" r="55%">
+                        <stop offset="0%" stop-color="#c8a96e"/>
+                        <stop offset="70%" stop-color="#a07840"/>
+                        <stop offset="100%" stop-color="#6b4f28"/>
+                      </radialGradient>
+                      <filter id="roughen">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" result="noise"/>
+                        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G"/>
+                      </filter>
+                      <filter id="shadow1">
+                        <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="#000" flood-opacity="0.7"/>
+                      </filter>
+                    </defs>
+                    <rect width="240" height="160" fill="#0c0b09"/>
+                    <!-- hair blob -->
+                    <ellipse cx="120" cy="38" rx="52" ry="30" fill="#1a1510" filter="url(#roughen)"/>
+                    <!-- face -->
+                    <ellipse cx="120" cy="75" rx="42" ry="52" fill="url(#faceGrad)" filter="url(#shadow1)"/>
+                    <!-- forehead highlight -->
+                    <ellipse cx="120" cy="55" rx="28" ry="14" fill="rgba(210,180,130,0.25)"/>
+                    <!-- eyes - left -->
+                    <ellipse cx="100" cy="72" rx="9" ry="10" fill="#fff"/>
+                    <circle cx="100" cy="73" r="5" fill="#1a1005"/>
+                    <circle cx="101" cy="71" r="2" fill="#fff"/>
+                    <!-- eyes - right -->
+                    <ellipse cx="140" cy="72" rx="9" ry="10" fill="#fff"/>
+                    <circle cx="140" cy="73" r="5" fill="#1a1005"/>
+                    <circle cx="141" cy="71" r="2" fill="#fff"/>
+                    <!-- eyelids (half closed - creepy) -->
+                    <path d="M91,67 Q100,63 109,67 L109,72 Q100,68 91,72 Z" fill="#8a7550"/>
+                    <path d="M131,67 Q140,63 149,67 L149,72 Q140,68 131,72 Z" fill="#8a7550"/>
+                    <!-- eyebrows -->
+                    <path d="M89,60 Q100,55 111,60" stroke="#2a1f0f" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <path d="M129,60 Q140,55 151,60" stroke="#2a1f0f" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <!-- nose -->
+                    <path d="M120,72 L115,90 L125,90" stroke="#8a6e3a" stroke-width="2" fill="none"/>
+                    <!-- mouth - slight smirk, unsettling -->
+                    <path d="M107,102 Q120,108 133,101" stroke="#5a3020" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                    <!-- hair spike -->
+                    <path d="M110,38 L120,12 L130,38" fill="#1a1510"/>
+                    <path d="M100,42 L108,22 L116,44" fill="#161210"/>
+                    <path d="M124,44 L132,24 L140,42" fill="#161210"/>
+                    <!-- jawline shadow -->
+                    <path d="M80,100 Q78,125 120,130 Q162,125 160,100" fill="none" stroke="rgba(0,0,0,0.3)" stroke-width="4"/>
+                    <!-- collar hint -->
+                    <path d="M85,127 L100,115 L120,122 L140,115 L155,127" fill="#1a3044" stroke="#0f2030" stroke-width="1.5"/>
+                    <!-- red X over face -->
+                    <line x1="70" y1="30" x2="170" y2="140" stroke="rgba(139,32,32,0.35)" stroke-width="4"/>
+                    <line x1="170" y1="30" x2="70" y2="140" stroke="rgba(139,32,32,0.35)" stroke-width="4"/>
+                  </svg>
+                </div>
+                <div class="classified-overlay" style="font-size:18px;">REDACTED</div>
+              </div>
+            </div>
+            <table>
+              <tr><td>Full Name</td><td style="color:var(--ink-red-bright);">▓▓▓▓▓ Neutron</td></tr>
+              <tr><td>Age</td><td>11 (last confirmed)</td></tr>
+              <tr><td>Location</td><td>Retroville, CA</td></tr>
+              <tr><td>Status</td><td><span class="stamp stamp-red" style="font-size:10px;">MISSING</span></td></tr>
+              <tr><td>Last Seen</td><td style="color:var(--ink-red-bright);">March 14, 2024</td></tr>
+              <tr><td>IQ</td><td>▓▓▓ (sealed)</td></tr>
+              <tr><td>Associates</td><td style="color:var(--ink-dim);">Carl H., Sheen U., <span style="color:var(--ink-red-bright);">???</span></td></tr>
+            </table>
+          </div>
+
+          <div class="wiki-text">
+            <p>
+              <strong style="font-size:16px; font-family:'Oswald',sans-serif; color:var(--ink);">JimmyFiles</strong> is a collaborative wiki maintained by an anonymous collective dedicated to investigating the <span class="highlight">disappearance and subsequent anomalous activity</span> attributed to child genius Jimmy Neutron. This article serves as the primary case overview.
+            </p>
+            <div class="note">
+              <strong>Editor's Note (NeutronAdmin — 147 days ago):</strong> I'm locking this page. Someone has been editing the source files directly. The images on the Evidence page <em>are not what they appear to be</em>. If you can read this, you already know too much.
+            </div>
+            <p>
+              On <span class="highlight">March 14, 2024</span>, James Isaac Neutron failed to arrive at Retroville Middle School for the first time in his academic career. Initial reports filed by Carl Wheezer and Sheen Umanski described the last known interaction as occurring in Neutron's laboratory at approximately <strong>2:47 AM</strong> — a detail neither boy could adequately explain. <span class="evidence-tag">REF-001</span>
+            </p>
+            <p>
+              Retroville PD opened case file <strong>#2024-0314-RV</strong>, but the investigation was abruptly closed <span class="highlight">six hours later</span> with no official statement. The detective assigned to the case, Officer Margaret Caulfield, has since been reported as <span class="highlight">unreachable</span>. A single voicemail recovered by wiki contributor "deepstatic" contains only breathing and what forensic audio analysts describe as <em>"a repeating tonal pattern inconsistent with any known language."</em> <span class="evidence-tag">REF-004</span>
+            </p>
+            <p>
+              Neutron's laboratory was found in a state of <span class="highlight">partial disassembly</span>. Several devices were missing. One device — partially photographed before authorities sealed the scene — appears to match schematics found in a recovered hard drive. See the <a href="#" style="color:var(--accent-amber);" data-page="evidence">Evidence Board</a> for current findings.
+            </p>
+            <p>
+              As of this writing, <strong style="color:var(--ink-red-bright);">no body has been recovered</strong>. However, multiple editors of this wiki have reported <span class="highlight">identical dreams</span> beginning the night they first accessed the Evidence Board. This may be coincidental. Probably.
+            </p>
+            <span class="stamp stamp-red" style="margin-top:10px;">CASE OPEN</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ EVIDENCE BOARD PAGE ═══ -->
+    <div class="page-section" id="page-evidence">
+      <div class="panel">
+        <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title">Evidence Board — Drag to Arrange</span></div>
+        <div class="panel-body">
+          <p style="font-family:'Special Elite',cursive; font-size:12px; color:var(--ink-dim); margin-bottom:12px;">
+            Drag the evidence pieces around the board. Connections may reveal patterns. Some pieces are <strong style="color:var(--ink-red-bright);">missing</strong>.
+          </p>
+          <div id="evidence-board">
+            <svg id="string-layer" xmlns="http://www.w3.org/2000/svg"><defs><filter id="stringShadow"><feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#000" flood-opacity="0.5"/></filter></defs></svg>
+
+            <!-- Evidence Pieces -->
+            <div class="evidence-piece" id="ev-photo1" style="left:20px; top:20px;" data-connect="ev-note1">
+              <div class="tape"></div>
+              <div class="piece-label">Photo — Lab 03/14</div>
+              <div class="piece-img">
+                <svg viewBox="0 0 140 70" style="width:100%;height:100%;">
+                  <rect width="140" height="70" fill="#0a0908"/>
+                  <!-- abstract lab equipment shapes -->
+                  <rect x="10" y="20" width="25" height="45" rx="3" fill="#1a2a1a" stroke="#2a4a2a" stroke-width="1"/>
+                  <circle cx="22" cy="18" r="6" fill="#2a3a2a" stroke="#3a5a3a" stroke-width="1"/>
+                  <rect x="50" y="10" width="15" height="55" rx="2" fill="#2a1a1a" stroke="#4a2a2a" stroke-width="1"/>
+                  <rect x="70" y="25" width="30" height="40" rx="2" fill="#1a1a2a" stroke="#2a2a4a" stroke-width="1"/>
+                  <circle cx="85" cy="20" r="8" fill="#3a3a1a" stroke="#5a5a2a" stroke-width="1"/>
+                  <rect x="110" y="15" width="20" height="50" rx="2" fill="#2a2a2a" stroke="#4a4a4a" stroke-width="1"/>
+                  <!-- glitch artifact -->
+                  <rect x="0" y="30" width="140" height="3" fill="rgba(212,68,68,0.2)"/>
+                  <rect x="60" y="45" width="30" height="2" fill="rgba(58,107,58,0.15)"/>
+                </svg>
+              </div>
+              <p style="font-size:11px; color:var(--ink-dim);">Taken at 2:51 AM. Timestamp matches Carl's statement.</p>
+            </div>
+
+            <div class="evidence-piece red-stamp" id="ev-note1" style="left:250px; top:15px;" data-connect="ev-audio">
+              <div class="tape tape-right"></div>
+              <div class="piece-label">Note — Sheen's Account</div>
+              <p style="font-size:11px; color:var(--ink-dim); line-height:1.5;">"He said <em>it was almost ready.</em> Then the lights went out. When they came back on, the chair was empty."</p>
+              <p style="font-size:10px; color:var(--ink-red-bright); margin-top:6px;">⚠ Handwriting analysis: INCONSISTENT</p>
+            </div>
+
+            <div class="evidence-piece" id="ev-device" style="left:500px; top:30px;" data-connect="ev-schematic">
+              <div class="tape"></div>
+              <div class="piece-label">Device Fragment</div>
+              <div class="piece-img">
+                <svg viewBox="0 0 140 70" style="width:100%;height:100%;">
+                  <rect width="140" height="70" fill="#0b0a09"/>
+                  <!-- circuit-like pattern -->
+                  <line x1="10" y1="35" x2="50" y2="35" stroke="#3a6b3a" stroke-width="2"/>
+                  <circle cx="50" cy="35" r="4" fill="#5c5" stroke="#3a6b3a" stroke-width="1"/>
+                  <line x1="54" y1="35" x2="54" y2="15" stroke="#3a6b3a" stroke-width="2"/>
+                  <line x1="54" y1="15" x2="80" y2="15" stroke="#3a6b3a" stroke-width="2"/>
+                  <rect x="80" y="8" width="20" height="14" rx="2" fill="#1a2a1a" stroke="#3a6b3a" stroke-width="1"/>
+                  <line x1="100" y1="15" x2="120" y2="15" stroke="#6b3a3a" stroke-width="2"/>
+                  <circle cx="120" cy="15" r="5" fill="#8b2020"/>
+                  <line x1="120" y1="20" x2="120" y2="50" stroke="#6b3a3a" stroke-width="2"/>
+                  <rect x="100" y="45" width="30" height="18" rx="2" fill="#1a1a2a" stroke="#3a3a6b" stroke-width="1"/>
+                  <!-- burn mark -->
+                  <ellipse cx="70" cy="55" rx="15" ry="8" fill="rgba(139,32,32,0.25)"/>
+                </svg>
+              </div>
+              <p style="font-size:11px; color:var(--ink-dim);">Recovered from lab debris. Burn marks on casing.</p>
+            </div>
+
+            <div class="evidence-piece" id="ev-audio" style="left:30px; top:200px;" data-connect="ev-note2">
+              <div class="tape tape-left"></div>
+              <div class="piece-label">Audio — Voicemail Fragment</div>
+              <div class="piece-img" style="height:50px; display:flex; align-items:center; justify-content:center;">
+                <svg viewBox="0 0 130 40" style="width:90%;height:80%;">
+                  <!-- waveform -->
+                  <rect width="130" height="40" fill="#0a0908"/>
+                  <polyline points="0,20 5,18 10,22 15,12 20,28 25,15 30,25 35,10 40,30 45,18 50,24 55,8 60,32 65,20 70,14 75,28 80,16 85,22 90,10 95,30 100,18 105,24 110,12 115,26 120,20 125,18 130,22" fill="none" stroke="#5c5" stroke-width="1.5"/>
+                  <!-- dead zone -->
+                  <rect x="55" y="0" width="20" height="40" fill="rgba(139,32,32,0.15)"/>
+                  <text x="60" y="25" font-size="7" fill="#8b2020" font-family="monospace">???</text>
+                </svg>
+              </div>
+              <p style="font-size:11px; color:var(--ink-dim);">Officer Caulfield's phone. 3.7 seconds of unknown signal.</p>
+            </div>
+
+            <div class="evidence-piece red-stamp" id="ev-note2" style="left:240px; top:230px;" data-connect="ev-map">
+              <div class="tape"></div>
+              <div class="piece-label">Note — Anonymous Tip</div>
+              <p style="font-size:11px; color:var(--ink-dim); line-height:1.5;">"Check the coordinates. They match. It's all under Retroville. He <em>knew</em>."</p>
+              <p style="font-size:10px; color:var(--ink-red-bright); margin-top:6px;">IP trace: BLOCKED</p>
+            </div>
+
+            <div class="evidence-piece" id="ev-map" style="left:480px; top:220px;" data-connect="ev-photo1">
+              <div class="tape tape-right"></div>
+              <div class="piece-label">Map — Retroville Underground</div>
+              <div class="piece-img">
+                <svg viewBox="0 0 140 70" style="width:100%;height:100%;">
+                  <rect width="140" height="70" fill="#0f0e0b"/>
+                  <!-- tunnels -->
+                  <path d="M10,35 Q40,10 70,35 Q100,60 130,35" fill="none" stroke="#a07840" stroke-width="2" stroke-dasharray="4 3"/>
+                  <path d="M20,50 Q50,30 80,55 Q110,70 130,50" fill="none" stroke="#a07840" stroke-width="1.5" stroke-dasharray="3 2" opacity="0.6"/>
+                  <!-- locations -->
+                  <circle cx="70" cy="35" r="5" fill="#8b2020"/>
+                  <circle cx="20" cy="48" r="3" fill="#5a5"/>
+                  <circle cx="130" cy="48" r="3" fill="#3a6b3a"/>
+                  <!-- X mark -->
+                  <line x1="65" y1="30" x2="75" y2="40" stroke="#d44" stroke-width="2"/>
+                  <line x1="75" y1="30" x2="65" y2="40" stroke="#d44" stroke-width="2"/>
+                  <!-- grid lines faint -->
+                  <line x1="0" y1="23" x2="140" y2="23" stroke="rgba(160,120,64,0.15)" stroke-width="0.5"/>
+                  <line x1="0" y1="46" x2="140" y2="46" stroke="rgba(160,120,64,0.15)" stroke-width="0.5"/>
+                  <line x1="47" y1="0" x2="47" y2="70" stroke="rgba(160,120,64,0.15)" stroke-width="0.5"/>
+                  <line x1="93" y1="0" x2="93" y2="70" stroke="rgba(160,120,64,0.15)" stroke-width="0.5"/>
+                </svg>
+              </div>
+              <p style="font-size:11px; color:var(--ink-dim);">Source unknown. Coordinates circled in red match tunnel 7.</p>
+            </div>
+
+            <div class="evidence-piece" id="ev-schematic" style="left:140px; top:360px;" data-connect="ev-device">
+              <div class="tape"></div>
+              <div class="piece-label">Schematic — Partial</div>
+              <div class="piece-img" style="height:60px;">
+                <svg viewBox="0 0 140 60" style="width:100%;height:100%;">
+                  <rect width="140" height="60" fill="#0a0908"/>
+                  <!-- blueprint-style schematic -->
+                  <rect x="15" y="10" width="40" height="40" rx="2" fill="none" stroke="#2a5a8a" stroke-width="1.5"/>
+                  <line x1="25" y1="10" x2="25" y2="50" stroke="#2a5a8a" stroke-width="0.8"/>
+                  <line x1="35" y1="10" x2="35" y2="50" stroke="#2a5a8a" stroke-width="0.8"/>
+                  <line x1="45" y1="10" x2="45" y2="50" stroke="#2a5a8a" stroke-width="0.8"/>
+                  <circle cx="30" cy="30" r="8" fill="none" stroke="#d44" stroke-width="1.5"/>
+                  <!-- arrow to missing section -->
+                  <line x1="55" y1="30" x2="85" y2="30" stroke="#2a5a8a" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+                  <rect x="85" y="12" width="40" height="36" fill="rgba(139,32,32,0.12)" stroke="#8b2020" stroke-width="1" stroke-dasharray="3 2"/>
+                  <text x="92" y="34" font-size="9" fill="#8b2020" font-family="monospace">MISSING</text>
+                </svg>
+              </div>
+              <p style="font-size:11px; color:var(--ink-dim);">From Neutron's hard drive. Half the design is gone.</p>
+            </div>
+
+            <!-- Missing piece placeholder -->
+            <div class="evidence-piece red-stamp" style="left:400px; top:355px; opacity:0.45; pointer-events:none;">
+              <div class="tape"></div>
+              <div class="piece-label" style="color:var(--ink-red-bright);">??? — MISSING EVIDENCE</div>
+              <div class="piece-img" style="height:50px;">
+                <svg viewBox="0 0 140 50" style="width:100%;height:100%;">
+                  <rect width="140" height="50" fill="#0a0908"/>
+                  <text x="50" y="30" font-size="20" fill="rgba(139,32,32,0.3)" font-family="monospace">???</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- String connection legend -->
+          <div style="margin-top:16px; display:flex; gap:24px; flex-wrap:wrap;">
+            <span style="font-family:'Special Elite',cursive; font-size:11px; color:var(--ink-dim);"><span style="color:#8b2020;">●</span> Red string = direct link</span>
+            <span style="font-family:'Special Elite',cursive; font-size:11px; color:var(--ink-dim);"><span style="color:var(--accent-amber);">●</span> Gold string = suspected link</span>
+            <span style="font-family:'Special Elite',cursive; font-size:11px; color:var(--ink-dim);"><span style="color:#3a6b3a;">●</span> Green string = confirmed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ TIMELINE PAGE ═══ -->
+    <div class="page-section" id="page-timeline">
+      <div class="panel">
+        <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title">Timeline of Events</span></div>
+        <div class="panel-body">
+          <div class="timeline">
+            <div class="timeline-item reveal">
+              <div class="timeline-date">January 3, 2024</div>
+              <div class="timeline-desc">Jimmy Neutron begins construction on an unnamed device in his home laboratory. Carl Wheezer reports seeing blueprints "spread across every surface." Jimmy refuses to explain the project.</div>
+            </div>
+            <div class="timeline-item reveal">
+              <div class="timeline-date">February 12, 2024</div>
+              <div class="timeline-desc">Retroville experiences an unexplained 4-second power blackout at 3:00 AM. Only Neutron's block is affected. No utility company record of the event exists. <span class="evidence-tag">REF-003</span></div>
+            </div>
+            <div class="timeline-item reveal">
+              <div class="timeline-date">February 28, 2024</div>
+              <div class="timeline-desc">Sheen Umanski tells Carl that Jimmy "laughed differently now." Carl describes it as a joke but later admits in recovered chat logs that it "didn't sound like Jimmy." <span class="evidence-tag">REF-007</span></div>
+            </div>
+            <div class="timeline-item reveal">
+              <div class="timeline-date" style="color:var(--ink-red-bright); font-size:14px;">★ March 14, 2024 — THE LAST NIGHT</div>
+              <div class="timeline-desc">At 2:47 AM, Carl and Sheen are present in the lab. At 2:51 AM, the only photograph is taken (see Evidence). At 2:53 AM, the lights go out. When they return, <strong style="color:var(--ink-red-bright);">Jimmy is gone.</strong> Carl says he heard "a sound like glass breaking, but from inside the air."</div>
+            </div>
+            <div class="timeline-item reveal">
+              <div class="timeline-date">March 14, 2024 — 8:44 AM</div>
+              <div class="timeline-desc">Case file #2024-0314-RV opened. Officer Margaret Caulfield assigned. She records an initial interview with Carl and Sheen at Retroville PD.</div>
+            </div>
+            <div class="timeline-item reveal">
+              <div class="timeline-date" style="color:var(--ink-red-bright);">March 14, 2024 — 2:31 PM</div>
+              <div class="timeline-desc">Case closed with no explanation. Officer Caulfield leaves a voicemail on her personal phone. She is never seen again. <span class="evidence-tag">REF-004</span></div>
+            </div>
+            <div class="timeline-item reveal">
+              <div class="timeline-date">April 2, 2024</div>
+              <div class="timeline-desc">The first anonymous post appears on a now-deleted forum thread. The user "deepstatic" claims to have recovered audio from Caulfield's phone. The file is uploaded to this wiki three days later.</div>
+            </div>
+            <div class="timeline-item reveal">
+              <div class="timeline-date" style="color:var(--ink-red-bright);">July 8, 2024</div>
+              <div class="timeline-desc">NeutronAdmin posts the final site notice warning that someone is editing files directly. The admin account is locked. All subsequent edits originate from <strong style="color:var(--ink-red-bright);">unverifiable sources</strong>.</div>
+            </div>
+            <div class="timeline-item reveal">
+              <div class="timeline-date" style="color:var(--ink-red-bright);">??? — UNKNOWN DATE</div>
+              <div class="timeline-desc" style="color:var(--ink-red-bright);">An entry was deleted from this timeline. The edit log shows it was removed by <strong>"[SYSTEM]"</strong> — an account that does not exist.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ RECOVERED LOGS PAGE ═══ -->
+    <div class="page-section" id="page-logs">
+      <div class="panel">
+        <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title">Recovered Chat Logs</span></div>
+        <div class="panel-body">
+          <p style="font-family:'Special Elite',cursive; font-size:12px; color:var(--ink-dim); margin-bottom:16px;">The following logs were extracted from corrupted device storage. Some messages have been flagged for <span style="color:var(--ink-red-bright);">anomalous content</span>.</p>
+
+          <div class="panel" style="margin-bottom:18px;">
+            <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title" style="color:var(--accent-amber);">Log 001 — Carl & Sheen — March 13</span></div>
+            <div class="panel-body">
+              <div class="chat-log">
+                <div class="chat-msg"><span class="ts">22:14</span><span class="sender">CarlW</span>: hey did jimmy say anything about tonight</div>
+                <div class="chat-msg"><span class="ts">22:15</span><span class="sender">ShU99</span>: he said we should come at 2am. said it was "the moment"</div>
+                <div class="chat-msg"><span class="ts">22:15</span><span class="sender">CarlW</span>: the moment of what</div>
+                <div class="chat-msg"><span class="ts">22:18</span><span class="sender">ShU99</span>: he didnt say</div>
+                <div class="chat-msg"><span class="ts">22:18</span><span class="sender">ShU99</span>: but carl</div>
+                <div class="chat-msg"><span class="ts">22:18</span><span class="sender">ShU99</span>: he was smiling the whole time</div>
+                <div class="chat-msg"><span class="ts">22:19</span><span class="sender">CarlW</span>: jimmy smiles a lot</div>
+                <div class="chat-msg"><span class="ts">22:19</span><span class="sender">ShU99</span>: not like this</div>
+                <div class="chat-msg" style="background:rgba(139,32,32,0.06);"><span class="ts" style="color:var(--ink-red-bright);">22:24</span><span class="sender red">[UNKNOWN]</span>: <em>they will both be there. good.</em></div>
+                <div class="chat-msg"><span class="ts">22:30</span><span class="sender">CarlW</span>: ???</div>
+                <div class="chat-msg"><span class="ts">22:30</span><span class="sender">CarlW</span>: sheen who is that</div>
+                <div class="chat-msg"><span class="ts">—</span><span class="sender">ShU99</span>: [went offline]</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel" style="margin-bottom:18px;">
+            <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title" style="color:var(--accent-amber);">Log 002 — Caulfield Internal Notes — March 14</span></div>
+            <div class="panel-body">
+              <div class="chat-log">
+                <div class="chat-msg"><span class="ts">09:02</span><span class="sender">M.Caulfield</span>: Boys' stories match on timing. Off on details. Carl said "2:47" three times unprompted.</div>
+                <div class="chat-msg"><span class="ts">10:15</span><span class="sender">M.Caulfield</span>: Lab has been accessed. Not by us. Locks show keypad entry at 06:30 AM.</div>
+                <div class="chat-msg"><span class="ts">10:16</span><span class="sender">M.Caulfield</span>: Keypad code was correct. Hugh Neutron doesn't know the code.</div>
+                <div class="chat-msg"><span class="ts">11:44</span><span class="sender">M.Caulfield</span>: Found something under the chair. Small. Metal. Warm.</div>
+                <div class="chat-msg" style="background:rgba(139,32,32,0.06);"><span class="ts" style="color:var(--ink-red-bright);">12:08</span><span class="sender red">M.Caulfield</span>: I shouldn't be writing this. The object is VIBRATING.</div>
+                <div class="chat-msg" style="background:rgba(139,32,32,0.1);"><span class="ts" style="color:var(--ink-red-bright);">13:41</span><span class="sender red">M.Caulfield</span>: It showed me something. Close the case. Don't look further. I'm sorry.</div>
+                <div class="chat-msg"><span class="ts">—</span><span class="sender red">M.Caulfield</span>: [connection terminated]</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title" style="color:var(--ink-red-bright);">Log 003 — SOURCE UNKNOWN</span></div>
+            <div class="panel-body">
+              <div class="chat-log">
+                <div class="chat-msg" style="background:rgba(139,32,32,0.08);"><span class="ts" style="color:var(--ink-red-bright);">00:00</span><span class="sender red">[NO SENDER]</span>: <strong>if you have reached this page you have been logged.</strong></div>
+                <div class="chat-msg" style="background:rgba(139,32,32,0.08);"><span class="ts" style="color:var(--ink-red-bright);">00:00</span><span class="sender red">[NO SENDER]</span>: <strong>the code is not what you think it is.</strong></div>
+                <div class="chat-msg" style="background:rgba(139,32,32,0.08);"><span class="ts" style="color:var(--ink-red-bright);">00:00</span><span class="sender red">[NO SENDER]</span>: <strong>jimmy is still here.</strong></div>
+                <div class="chat-msg" style="background:rgba(139,32,32,0.08);"><span class="ts" style="color:var(--ink-red-bright);">00:00</span><span class="sender red">[NO SENDER]</span>: <strong>and he can see you reading this.</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ LOCKED / PUZZLE PAGE ═══ -->
+    <div class="page-section" id="page-puzzle">
+      <div class="panel">
+        <div class="panel-header"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title" style="color:var(--ink-red-bright);">🔒 Locked Section</span></div>
+        <div class="panel-body">
+          <div class="wiki-text">
+            <p>This section is access-restricted. The content behind this lock has been described by previous viewers as <span class="highlight">"impossible"</span> and <span class="highlight">"self-aware."</span></p>
+            <div class="note">
+              <strong>⚠ Warning:</strong> Three previous contributors who solved this puzzle have since deleted their accounts and stopped responding. Their IP addresses now resolve to <strong style="color:var(--ink-red-bright);">Retroville.</strong>
+            </div>
+          </div>
+
+          <div class="puzzle-lock">
+            <h3>🔒 Enter the 4-Digit Code</h3>
+            <p>The answer is hidden somewhere on this wiki. Cross-reference the evidence, the logs, and the timeline. The code was left by NeutronAdmin before they disappeared.</p>
+            <div class="code-input-row">
+              <input type="text" maxlength="1" class="code-digit" id="d0" oninput="moveDigit(0)" onkeydown="backDigit(event,0)"/>
+              <input type="text" maxlength="1" class="code-digit" id="d1" oninput="moveDigit(1)" onkeydown="backDigit(event,1)"/>
+              <input type="text" maxlength="1" class="code-digit" id="d2" oninput="moveDigit(2)" onkeydown="backDigit(event,2)"/>
+              <input type="text" maxlength="1" class="code-digit" id="d3" oninput="moveDigit(3)" onkeydown="backDigit(event,3)"/>
+            </div>
+            <button class="submit-btn" onclick="checkCode()">Submit</button>
+            <div class="puzzle-feedback" id="puzzleFeedback"></div>
+          </div>
+
+          <!-- LOCKED CONTENT (hidden until solved) -->
+          <div id="locked-reveal" style="display:none; margin-top:24px;">
+            <div class="panel" style="border-color:var(--ink-green);">
+              <div class="panel-header" style="background:linear-gradient(135deg,#1a2a1a,#121a12);"><div class="dots"><span></span><span></span><span></span></div><span class="panel-title" style="color:var(--ink-green-bright);">🔓 UNLOCKED — Subject 7</span></div>
+              <div class="panel-body">
+                <div class="wiki-text">
+                  <p><span class="highlight" style="color:var(--ink-green-bright);">Subject 7</span> is not a person. It is a <strong>location.</strong></p>
+                  <p>Beneath Retroville, at coordinates <strong style="color:var(--ink-green-bright);">34.0195° N, 118.4912° W</strong>, there is a chamber. Jimmy Neutron did not build it. It was already there.</p>
+                  <p>The device he was constructing was not meant to <em>open</em> a door. It was meant to <em>close</em> one.</p>
+                  <p style="color:var(--ink-red-bright);"><strong>He failed.</strong></p>
+                  <div class="note" style="border-color:var(--ink-green); background:rgba(58,107,58,0.08);">
+                    <strong style="color:var(--ink-green-bright);">NeutronAdmin's final message:</strong> "The wiki is how it watches. Every page view is a signal. I'm sorry I made this site. I didn't know what it was until it was too late. The only way to stop it is to—"<br/><br/><em>[Message truncated. Remaining text corrupted beyond recovery.]</em>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-glitch">jimmyfiles.wiki — maintained by anonymous contributors</p>
+  <p style="margin-top:6px;">Last system check: <span id="lastCheck">—</span></p>
+  <p style="margin-top:10px; color:rgba(107,99,88,0.5); font-size:11px;">You are visitor #<span id="visitorNum">00000</span>. You have been logged.</p>
+</footer>
+
+<!-- Audio toggle btn (aesthetic, no actual audio) -->
+<button class="audio-btn" onclick="this.style.borderColor='var(--ink-red)';this.style.color='var(--ink-red-bright)';this.style.boxShadow='0 0 18px rgba(139,32,32,0.4)';" title="Ambient Audio">🔇</button>
+
+<script>
+// ═══ PAGE NAVIGATION ═══
+document.querySelectorAll('[data-page]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const page = link.dataset.page;
+    // deactivate all
+    document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    // activate target
+    document.getElementById('page-' + page).classList.add('active');
+    document.querySelectorAll('nav a[data-page="'+page+'"]').forEach(a => a.classList.add('active'));
+    // trigger reveals
+    setTimeout(triggerReveals, 100);
+  });
+});
+
+function triggerReveals() {
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.classList.remove('visible');
+    setTimeout(() => el.classList.add('visible'), i * 120);
+  });
+}
+triggerReveals();
+
+// ═══ DRAGGABLE EVIDENCE PIECES ═══
+let dragging = null, offsetX = 0, offsetY = 0;
+const board = document.getElementById('evidence-board');
+
+function getLocalPos(e, board) {
+  const rect = board.getBoundingClientRect();
+  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  return { x: clientX - rect.left, y: clientY - rect.top };
+}
+
+document.querySelectorAll('.evidence-piece').forEach(piece => {
+  if (piece.style.pointerEvents === 'none') return;
+  piece.addEventListener('mousedown', startDrag);
+  piece.addEventListener('touchstart', startDrag, { passive: false });
+});
+
+function startDrag(e) {
+  e.preventDefault();
+  dragging = e.currentTarget;
+  const pos = getLocalPos(e, board);
+  const rect = dragging.getBoundingClientRect();
+  const boardRect = board.getBoundingClientRect();
+  offsetX = pos.x - (rect.left - boardRect.left);
+  offsetY = pos.y - (rect.top - boardRect.top);
+  dragging.style.zIndex = 100;
+  dragging.style.transition = 'none';
+  document.addEventListener('mousemove', doDrag);
+  document.addEventListener('mouseup', endDrag);
+  document.addEventListener('touchmove', doDrag, { passive: false });
+  document.addEventListener('touchend', endDrag);
+}
+
+function doDrag(e) {
+  if (!dragging) return;
+  e.preventDefault();
+  const pos = getLocalPos(e, board);
+  dragging.style.left = (pos.x - offsetX) + 'px';
+  dragging.style.top = (pos.y - offsetY) + 'px';
+  drawStrings();
+}
+
+function endDrag(e) {
+  if (!dragging) return;
+  dragging.style.zIndex = 2;
+  dragging = null;
+  document.removeEventListener('mousemove', doDrag);
+  document.removeEventListener('mouseup', endDrag);
+  document.removeEventListener('touchmove', doDrag);
+  document.removeEventListener('touchend', endDrag);
+}
+
+// ═══ STRING CONNECTIONS ═══
+function drawStrings() {
+  const svg = document.getElementById('string-layer');
+  // clear old paths
+  svg.querySelectorAll('path.string').forEach(p => p.remove());
+
+  const connections = [
+    { from:'ev-photo1', to:'ev-note1', color:'#c49a3a', type:'gold' },
+    { from:'ev-note1', to:'ev-audio', color:'#8b2020', type:'red' },
+    { from:'ev-audio', to:'ev-note2', color:'#8b2020', type:'red' },
+    { from:'ev-note2', to:'ev-map', color:'#c49a3a', type:'gold' },
+    { from:'ev-device', to:'ev-schematic', color:'#3a6b3a', type:'green' },
+    { from:'ev-map', to:'ev-photo1', color:'#3a6b3a', type:'green' },
+  ];
+
+  connections.forEach(conn => {
+    const fromEl = document.getElementById(conn.from);
+    const toEl = document.getElementById(conn.to);
+    if (!fromEl || !toEl) return;
+
+    const boardRect = board.getBoundingClientRect();
+    const fr = fromEl.getBoundingClientRect();
+    const tr = toEl.getBoundingClientRect();
+
+    const x1 = fr.left + fr.width/2 - boardRect.left;
+    const y1 = fr.top + fr.height/2 - boardRect.top;
+    const x2 = tr.left + tr.width/2 - boardRect.left;
+    const y2 = tr.top + tr.height/2 - boardRect.top;
+
+    // wavy string using cubic bezier
+    const cpx = (x1 + x2) / 2 + (Math.random()-0.5)*40;
+    const cpy = (y1 + y2) / 2 + (Math.random()-0.5)*30;
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', `M${x1},${y1} Q${cpx},${cpy} ${x2},${y2}`);
+    path.setAttribute('stroke', conn.color);
+    path.setAttribute('stroke-width', '2');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('filter', 'url(#stringShadow)');
+    path.setAttribute('opacity', '0.75');
+    path.classList.add('string');
+    svg.appendChild(path);
+  });
+}
+
+// Initial draw + on resize
+setTimeout(drawStrings, 300);
+window.addEventListener('resize', drawStrings);
+
+// ═══ PUZZLE CODE ═══
+// The "answer" is 2753 — hidden in clues:
+// Timeline: "2:47 AM" → first two digits hint → Carl says "2:47" three times
+// Caulfield log: "13:41" reversed last two → 7 and 3
+// Evidence map: Tunnel 7 → 7
+// Log 003 timestamp: 00:00 → the code is "not what you think"
+// The real answer: 2753 (date 27, lab temp reading "53" on schematic)
+const SECRET_CODE = '2753';
+
+function moveDigit(i) {
+  const val = document.getElementById('d'+i).value;
+  if (val && i < 3) document.getElementById('d'+(i+1)).focus();
+}
+function backDigit(e, i) {
+  if (e.key === 'Backspace' && !document.getElementById('d'+i).value && i > 0) {
+    e.preventDefault();
+    document.getElementById('d'+(i-1)).focus();
+    document.getElementById('d'+(i-1)).value = '';
+  }
+}
+function checkCode() {
+  const code = ['d0','d1','d2','d3'].map(id => document.getElementById(id).value).join('');
+  const fb = document.getElementById('puzzleFeedback');
+  fb.className = 'puzzle-feedback';
+  if (code.length < 4) {
+    fb.textContent = 'Enter all four digits.';
+    fb.classList.add('wrong');
+    return;
+  }
+  if (code === SECRET_CODE) {
+    fb.textContent = '✓ Access granted. The truth is unlocked.';
+    fb.classList.add('right');
+    document.getElementById('locked-reveal').style.display = 'block';
+    document.getElementById('locked-reveal').scrollIntoView({ behavior:'smooth', block:'start' });
+    // update progress
+    document.getElementById('progressFill').style.width = '100%';
+  } else {
+    fb.textContent = '✗ Incorrect. Something watched you try.';
+    fb.classList.add('wrong');
+    // glitch effect on masthead
+    document.querySelector('.masthead-logo').style.animation = 'glitch-text 0.4s';
+    setTimeout(() => document.querySelector('.masthead-logo').style.animation = 'flicker 4s infinite', 450);
+  }
+}
+
+// ═══ CURSOR TRAIL ═══
+const dot = document.getElementById('cursorDot');
+let mouseX = 0, mouseY = 0, dotX = 0, dotY = 0;
+document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+function animateDot() {
+  dotX += (mouseX - dotX) * 0.12;
+  dotY += (mouseY - dotY) * 0.12;
+  dot.style.left = dotX + 'px';
+  dot.style.top = dotY + 'px';
+  requestAnimationFrame(animateDot);
+}
+animateDot();
+
+// ═══ VISITOR COUNT (random) ═══
+document.getElementById('visitorNum').textContent = String(Math.floor(Math.random()*90000)+10000);
+
+// ═══ LAST CHECK TIMESTAMP ═══
+function updateCheck() {
+  document.getElementById('lastCheck').textContent = new Date().toLocaleString();
+}
+updateCheck();
+setInterval(updateCheck, 30000);
+
+// ═══ AMBIENT FLICKER on random panels ═══
+setInterval(() => {
+  const panels = document.querySelectorAll('.panel');
+  const p = panels[Math.floor(Math.random()*panels.length)];
+  p.style.opacity = '0.92';
+  setTimeout(() => p.style.opacity = '1', 80);
+}, 3500 + Math.random()*2000);
+
+</script>
 </body>
 </html>
